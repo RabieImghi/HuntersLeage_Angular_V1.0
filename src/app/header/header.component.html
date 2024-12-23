@@ -1,0 +1,156 @@
+<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <!-- Logo Section -->
+      <div class="flex items-center">
+        <span class="text-2xl font-bold">
+          <span class="text-[#6A42C2]">Hunters</span>
+          <span class="text-black">-League</span>
+        </span>
+      </div>
+  
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a
+          routerLink=""
+          [ngClass]="{ 'border-b-2 border-[#6A42C2] text-[#6A42C2]': activeLink === 'home' }"
+          (click)="setActiveLink('home')"
+          class="text-sm font-semibold cursor-pointer pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Home
+        </a>
+        <a
+          routerLink="competitions"
+          [ngClass]="{ 'border-b-2 border-[#6A42C2] text-[#6A42C2]': activeLink === 'competitions' }"
+          (click)="setActiveLink('competitions')"
+          class="text-sm font-semibold cursor-pointer hover:text-[#6A42C2] pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Competitions
+        </a>
+        <a
+          routerLink="species"
+          [ngClass]="{ 'border-b-2 border-[#6A42C2] text-[#6A42C2]': activeLink === 'species' }"
+          (click)="setActiveLink('species')"
+          class="text-sm font-semibold cursor-pointer hover:text-[#6A42C2] pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Species
+        </a>
+        <a
+          routerLink="results"
+          [ngClass]="{ 'border-b-2 border-[#6A42C2] text-[#6A42C2]': activeLink === 'results' }"
+          (click)="setActiveLink('results')"
+          class="text-sm font-semibold cursor-pointer hover:text-[#6A42C2] pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Results
+        </a>
+        <a
+          routerLink="top-three-user"
+          [ngClass]="{ 'border-b-2 border-[#6A42C2] text-[#6A42C2]': activeLink === 'top-three-user' }"
+          (click)="setActiveLink('top-three-user')"
+          class="text-sm cursor-pointer font-semibold hover:text-[#6A42C2] pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Top Three User
+        </a>
+      </nav>
+
+      
+      <div class="hidden md:block">
+        <a
+            routerLink="login"
+            class="relative cursor-pointer bg-[#6A42C2] w-24 mx-4 text-white border-[#6A42C2] text-sm font-semibold py-2 px-4 rounded overflow-hidden group"
+        >
+            <span class="absolute border-[#6A42C2] inset-0 bg-white transform translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+            <span class="relative text-white group-hover:text-[#6A42C2] border-[#6A42C2]">Sign In</span>
+        </a>
+      </div>
+  
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden focus:outline-none" (click)="toggleMenu()">
+        <svg *ngIf="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+        <svg *ngIf="isMenuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  
+    <!-- Mobile Menu -->
+    <div
+      class="block md:hidden fixed inset-0 bg-white z-50 h-full w-3/4 max-w-xs shadow-lg transform transition-transform duration-500 ease-out"
+      [ngClass]="{
+        'translate-x-0': isMenuOpen,
+        '-translate-x-full': !isMenuOpen
+      }"
+    >
+      <!-- Logo Section -->
+      <div class="flex items-center justify-between p-4">
+        <span class="text-2xl font-bold">
+          <span class="text-[#6A42C2]">Hunters</span>
+          <span class="text-black">-League</span>
+        </span>
+      </div>
+      <hr class="border-t border-[#6A42C2] w-full my-2" />
+  
+      <!-- Links -->
+      <nav class="flex flex-col space-y-4 py-6 px-4">
+        <a
+          routerLink=""
+          [ngClass]="{ 'border-l-4 border-[#6A42C2] text-[#6A42C2]': activeLink === 'home' }"
+          (click)="setActiveLink('home')"
+          class="text-sm font-semibold pl-4 cursor-pointer hover:border-l-4 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Home
+        </a>
+        <a
+          routerLink="competitions"
+          [ngClass]="{ 'border-l-4 border-[#6A42C2] text-[#6A42C2]': activeLink === 'competitions' }"
+          (click)="setActiveLink('competitions')"
+          class="text-sm font-semibold pl-4 cursor-pointer hover:border-l-4 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Competitions
+        </a>
+        <a
+          routerLink="species"
+          [ngClass]="{ 'border-l-4 border-[#6A42C2] text-[#6A42C2]': activeLink === 'species' }"
+          (click)="setActiveLink('species')"
+          class="text-sm font-semibold pl-4 cursor-pointer hover:border-l-4 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Species
+        </a>
+        <a
+          routerLink="results"
+          [ngClass]="{ 'border-l-4 border-[#6A42C2] text-[#6A42C2]': activeLink === 'results' }"
+          (click)="setActiveLink('results')"
+          class="text-sm font-semibold pl-4 cursor-pointer hover:border-l-4 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Results
+        </a>
+        <a
+          routerLink="top-three-user"
+          [ngClass]="{ 'border-l-4 border-[#6A42C2] text-[#6A42C2]': activeLink === 'top-three-user' }"
+          (click)="setActiveLink('top-three-user')"
+          class="text-sm font-semibold pl-4 cursor-pointer hover:border-l-4 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Top Three User
+        </a>
+
+        <a
+            routerLink="login"
+            class="relative cursor-pointer bg-[#6A42C2] w-24 mx-4 text-white text-sm font-semibold py-2 px-4 rounded overflow-hidden group"
+        >
+            <span class="absolute inset-0 bg-white transform translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+            <span class="relative text-white group-hover:text-[#6A42C2]">Sign In</span>
+        </a>
+
+        <a
+            routerLink="register"
+            class="relative bg-white w-24 cursor-pointer mx-4 text-[#6A42C2] text-sm font-semibold py-2 px-4 rounded border border-[#6A42C2] overflow-hidden group"
+        >
+            <span class="absolute inset-0 bg-[#6A42C2] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+            <span class="relative text-[#6A42C2] group-hover:text-white">Sign Up</span>
+        </a>
+
+      </nav>
+    </div>
+  </header>
+  
