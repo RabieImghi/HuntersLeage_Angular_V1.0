@@ -1,0 +1,113 @@
+<div class="relative min-h-screen w-full overflow-hidden bg-white">
+  <div class="absolute right-0 top-0 h-64 w-64">
+    <div class="grid grid-cols-8 gap-2">
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-2">
+      <div class="relative order-2 lg:order-1" data-aos="fade-right">
+        <div class="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gray-100">
+          <div class="absolute inset-0 rounded-2xl border-8 border-white/10 bg-[#6A42C2]/10"></div>
+          
+          <!-- Play Button -->
+          <button 
+            class="absolute left-1/2 z-10 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
+            (click)="playVideo()"
+            #playButton
+          >
+            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-[#6A42C2] text-white shadow-lg">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 10.87v2.258a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                </svg>
+              </span>
+            </div>
+          </button>
+      
+          <video 
+            #videoPlayer 
+            class="absolute inset-0 h-full w-full object-cover rounded-xl" 
+            muted 
+            preload="metadata" 
+          >
+            <source src="assets/about.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          
+        </div>
+      </div>
+      
+
+      <div class="order-1 lg:order-2"  data-aos="fade-left">
+        <div class="space-y-8">
+          <div>
+            <span class="text-sm font-medium text-[#6A42C2]">About Hunters League</span>
+            <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              Know More About The Hunters League
+            </h1>
+          </div>
+
+          <p class="text-lg text-gray-600">
+            Hunters League offers a variety of competitions and activities for hunting enthusiasts. 
+            Join us to experience the thrill of the hunt in diverse environments and connect with 
+            like-minded individuals.
+          </p>
+
+          <div class="rounded-xl bg-gray-50 p-6">
+            <div class="flex gap-4">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-[#6A42C2]/10">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#6A42C2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20h5v-2a4 4 0 00-3-3.87M12 4v4m0 0a4 4 0 100 8 4 4 0 000-8z" />
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-900">Join the Community</h3>
+                <p class="mt-1 text-gray-600">
+                  Connect with fellow hunters, share experiences, and participate in exciting events.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-6">
+            <div class="relative group">
+              <button
+                  class="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95">
+                  <span
+                      class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
+
+                  <span class="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
+                      <div class="relative z-10 flex items-center space-x-2">
+                          <span class="transition-all duration-500 group-hover:translate-x-1">Sign Up</span>
+                          <svg class="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
+                              data-slot="icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path clip-rule="evenodd"
+                                  d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                                  fill-rule="evenodd"></path>
+                          </svg>
+                      </div>
+                  </span>
+              </button>
+          </div>
+
+            <div class="flex items-center gap-3">
+              <div class="flex -space-x-2">
+                <div class="h-10 w-10 rounded-full border-2 border-white bg-gray-100"></div>
+                <div class="h-10 w-10 rounded-full border-2 border-white bg-gray-100"></div>
+                <div class="h-10 w-10 rounded-full border-2 border-white bg-gray-100"></div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xl font-bold text-[#6A42C2]">25+</span>
+                <span class="text-sm text-gray-600">competitions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

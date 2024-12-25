@@ -1,23 +1,28 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import * as AOS from 'aos';
+import { ServiceComponent } from '../service/service.component';
+import { AboutComponent } from '../about/about.component';
 
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ServiceComponent, AboutComponent],
   templateUrl: './hero.component.html'
 })
 export class HeroComponent {
 
-  cursorX: number = 0;
-  cursorY: number = 0;
   backgroundImage: string = 'assets/body2.jpg';
   gifImage: string = 'assets/slide.png';
 
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    this.cursorX = event.clientX;
-    this.cursorY = event.clientY;
+
+  ngOnInit() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+    });
   }
+
 }

@@ -1,103 +1,64 @@
-<div 
-class="pointer-events-none fixed left-0 top-0 z-50 h-8 w-8 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-[#6A42C2] shadow-md shadow-[#6A42C2] transition-all duration-300 ease-out"
-[style.left.px]="cursorX"
-[style.top.px]="cursorY">
-</div>
-
-
-
 <section class="relative min-h-screen w-full overflow-hidden">
     <div class="absolute inset-0">
-    <img
-        [src]="backgroundImage"
-        alt="Majestic deer in forest"
-        class="h-full w-full object-cover brightness-75"
-    />
-    <div class="absolute inset-0 bg-black/70"></div>
+        <img [src]="backgroundImage" alt="Majestic deer in forest" class="h-full w-full object-cover brightness-75" />
+        <div class="absolute inset-0 bg-black/70"></div>
     </div>
 
     <div class="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-12 px-6 py-24 lg:grid-cols-2">
-        <div class="text-white">
+        <div class="text-white" data-aos="fade-right">
             <h1 class="mb-6 text-5xl font-bold tracking-tight sm:text-6xl">
-            Hunter's
-            <span
-                class="text-transparent"
-                [ngStyle]="{
-                    WebkitTextStroke: '2px #6A42C2',
-                    color: 'transparent'
-                }"
-                >
-                League
-            </span>
+                Hunter's
+                <span class="text-transparent" [ngStyle]="{
+            WebkitTextStroke: '2px #6A42C2',
+            color: 'transparent'
+          }">
+                    League
+                </span>
             </h1>
             <p class="mb-8 max-w-xl text-lg text-gray-200">
-            Join the elite community of hunters. Experience the thrill of the hunt in the most
-            pristine wilderness locations across the globe.
+                Join the elite community of hunters. Experience the thrill of the hunt in the most
+                pristine wilderness locations across the globe.
             </p>
-                <div class="relative group">
-                    <button
-                    class="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
-                    >
+            <div class="relative group">
+                <button
+                    class="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95">
                     <span
-                        class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    ></span>
+                        class="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
 
                     <span class="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
                         <div class="relative z-10 flex items-center space-x-2">
-                        <span class="transition-all duration-500 group-hover:translate-x-1"
-                            >Let's get started</span
-                        >
-                        <svg
-                            class="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
-                            data-slot="icon"
-                            aria-hidden="true"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                            clip-rule="evenodd"
-                            d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                            fill-rule="evenodd"
-                            ></path>
-                        </svg>
+                            <span class="transition-all duration-500 group-hover:translate-x-1">Let's get started</span>
+                            <svg class="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
+                                data-slot="icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
                         </div>
                     </span>
-                    </button>
-                </div>
-
+                </button>
+            </div>
         </div>
 
-        <div class="relative aspect-square w-full max-w-md justify-self-center lg:justify-self-end cursor-pointer">
+        <div class="relative aspect-square w-full max-w-md justify-self-center lg:justify-self-end cursor-pointer"
+            data-aos="fade-left">
             <div class="animate-float rounded-lg bg-black/30 p-4 backdrop-blur-sm">
                 <div
-                class="group hover:-rotate-0 [transform:rotate3d(1,-1,1,15deg)] duration-500 overflow-hidden bg-gradient-to-bl from-[#6A42C2] via-[#6A42C2] to-[#6A42C2] p-6 rounded-full hover:shadow-lg [box-shadow:12px_12px_0px_0px_#ffffff] backdrop-filter backdrop-blur-md border border-neutral-600 relative"
-              >
-              
-                <img
-                  [src]="gifImage"
-                  alt="Hunting animation"
-                  class="rounded w-full h-full object-cover"
-                />
-              
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48px"
-                  height="48px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="absolute -top-2 -right-2 w-12 h-12 stroke-yellow-300"
-                >
-                  <path
-                    d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
-                    stroke="#6A42C2" 
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </div>
+                    class="group hover:-rotate-0 [transform:rotate3d(1,-1,1,15deg)] duration-500 overflow-hidden bg-gradient-to-bl from-[#6A42C2] via-[#6A42C2] to-[#6A42C2] p-6 rounded-full hover:shadow-lg [box-shadow:12px_12px_0px_0px_#ffffff] backdrop-filter backdrop-blur-md border border-neutral-600 relative">
+                    <img [src]="gifImage" alt="Hunting animation" class="rounded w-full h-full object-cover" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24" fill="none"
+                        class="absolute -top-2 -right-2 w-12 h-12 stroke-yellow-300">
+                        <path
+                            d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+                            stroke="#6A42C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
+
 </section>
+
+<app-about></app-about>
+<app-service></app-service>
