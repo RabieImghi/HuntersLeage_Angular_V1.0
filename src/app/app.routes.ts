@@ -2,9 +2,13 @@ import { Routes } from '@angular/router';
 import { HeroComponent } from './front-student/hero/hero.component';
 import { CompitionsComponent } from './componenet/compitions/compitions.component';
 import { SpeceisComponent } from './componenet/speceis/speceis.component';
+import { LoginComponent } from './componenet/auth/login/login.component';
+import { RegisterComponent } from './componenet/auth/register/register.component';
 
 export const routes: Routes = [
     {path: '', component: HeroComponent},
     {path: 'competitions', component: CompitionsComponent},
-    {path: 'species', component: SpeceisComponent}
+    {path: 'species', component: SpeceisComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent}
 ];
