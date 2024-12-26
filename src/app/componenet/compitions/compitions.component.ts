@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import AOS from 'aos';
 
 interface Competition {
   code: string;
@@ -19,6 +20,14 @@ interface Competition {
 })
 export class CompitionsComponent {
 
+
+  ngOnInit() {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+      });
+    }
   competitions: Competition[] = [
     {
       code: 'CMP-001',

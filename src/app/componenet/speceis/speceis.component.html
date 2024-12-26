@@ -1,0 +1,29 @@
+<div class="container mt-[100px] mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div *ngFor="let species of speciesList" data-aos="zoom-in" class="shadow-md card m-auto text-gray-700 w-[clamp(260px,80%,300px)] hover:brightness-90 transition-all cursor-pointer group border-r-2 border-t-2 border-gray-900 m-4 rounded-lg overflow-hidden relative">
+          <div class="px-8 py-10">
+            <div 
+            [ngClass]="{
+                'bg-[#6A42C2] group-hover:shadow-[#6A42C2]': species.category === 'SEA',
+                'bg-[#7C444F] group-hover:shadow-[#7C444F]': species.category === 'BIG_GAME',
+                'bg-sky-500 group-hover:shadow-sky-500': species.category === 'BIRD'
+              }" 
+            class="w-10 h-10 rounded-full rounded-tl-none mb-4 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-[#6A42C2] transition-all"></div>
+            <div class="uppercase font-bold text-xl">
+              {{ species.name }}
+            </div>
+            <div class="text-gray-500 uppercase tracking-widest">
+              {{ species.category }}
+            </div>
+            <div class="text-gray-600 mt-8">
+              <p class="font-bold">Min Weight: {{ species.minimumWeight }} kg</p>
+              <p>Difficulty: {{ species.difficulty }}</p>
+              <p>Points: {{ species.points }}</p>
+            </div>
+          </div>
+      
+          <div class="h-2 w-full bg-gradient-to-l via-yellow-500 group-hover:blur-xl blur-2xl m-auto rounded transition-all absolute bottom-0"></div>
+          <div class="h-0.5 group-hover:w-full bg-gradient-to-l via-[#6A42C2] group-hover:via-[#6A42C2] w-[70%] m-auto rounded transition-all"></div>
+        </div>
+      </div>
+</div>
