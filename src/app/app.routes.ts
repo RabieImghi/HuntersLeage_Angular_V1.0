@@ -4,11 +4,12 @@ import { CompitionsComponent } from './componenet/compitions/compitions.componen
 import { SpeceisComponent } from './componenet/speceis/speceis.component';
 import { LoginComponent } from './componenet/auth/login/login.component';
 import { RegisterComponent } from './componenet/auth/register/register.component';
-
+import { TopThreeComponent } from './componenet/top-three/top-three.component';
 export const routes: Routes = [
     {path: '', component: HeroComponent},
     {path: 'competitions', component: CompitionsComponent},
     {path: 'species', component: SpeceisComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent}
+    {path: 'register', component: RegisterComponent},
+    {path: 'top-three-user', component: TopThreeComponent}
 ];

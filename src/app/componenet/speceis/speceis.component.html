@@ -1,35 +1,51 @@
 <div class="container mt-[100px] mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        <div *ngFor="let species of speciesList" data-aos="zoom-in" class="shadow-md card m-auto text-gray-700 w-[clamp(260px,80%,300px)] hover:brightness-90 transition-all cursor-pointer group border-r-2 border-t-2 border-gray-900 m-4 rounded-lg overflow-hidden relative">
-          <div class="px-8 py-10">
-            <div 
-            [ngClass]="{
-                'bg-[#6A42C2] group-hover:shadow-[#6A42C2]': species.category === 'SEA',
-                'bg-[#7C444F] group-hover:shadow-[#7C444F]': species.category === 'BIG_GAME',
-                'bg-sky-500 group-hover:shadow-sky-500': species.category === 'BIRD'
-              }" 
-            class="w-10 h-10 rounded-full rounded-tl-none mb-4 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-[#6A42C2] transition-all"></div>
-
-            <!-- Image for species -->
-            <div class="mb-4">
-              <img src="assets/slide.png" alt="{{ species.name }}" class="w-full h-32 object-cover rounded-lg">
-            </div>
-
-            <div class="uppercase font-bold text-xl">
-              {{ species.name }}
-            </div>
-            <div class="text-gray-500 uppercase tracking-widest">
-              {{ species.category }}
-            </div>
-            <div class="text-gray-600 mt-8">
-              <p class="font-bold">Min Weight: {{ species.minimumWeight }} kg</p>
-              <p>Difficulty: {{ species.difficulty }}</p>
-              <p>Points: {{ species.points }}</p>
-            </div>
+  <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Card for each species -->
+      <div
+        *ngFor="let species of speciesList"
+        class="bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-all group relative transform transition-transform duration-300 hover:translate-y-[-20px] hover:scale-105 group"
+      >
+        <div class="aspect-[4/3] relative bg-gray-200">
+          <img
+          [src]="species.category === 'SEA' ? 'assets/sea.png' : species.category === 'BIRD' ? 'assets/brid.png' : species.category === 'BIG_GAME' ? 'assets/big.png' : 'assets/default.png'" 
+            alt="{{ species.name }}"
+            class="absolute inset-0 h-full w-full object-cover filter brightness-50"
+          />
+        
+          <div class="absolute inset-0 flex items-center justify-center">
+            <p class="text-white font-bold text-2xl">{{ species.category }}</p>
           </div>
-      
-          <div class="h-2 w-full bg-gradient-to-l via-yellow-500 group-hover:blur-xl blur-2xl m-auto rounded transition-all absolute bottom-0"></div>
-          <div class="h-0.5 group-hover:w-full bg-gradient-to-l via-[#6A42C2] group-hover:via-[#6A42C2] w-[70%] m-auto rounded transition-all"></div>
+        </div>
+  
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">
+            {{ species.name }}
+          </h3>
+  
+          <p class="text-gray-600 text-sm mb-2">
+            <strong>Minimum Weight:</strong> {{ species.minimumWeight }} kg
+          </p>
+          <p class="text-sm mb-2">
+            <strong>
+              Difficulty: 
+              <span [class]="species.difficulty === 'LEGENDARY' ? 'text-red-500' : species.difficulty === 'EPIC' ? 'text-orange-500' : species.difficulty === 'RARE' ? 'text-yellow-500' : 'text-green-500'">
+                {{ species.difficulty }}
+              </span>
+            </strong>
+          </p>
+          <p class="text-gray-600 text-sm mb-2">
+            <strong>Hunted :</strong> {{ species.minimumWeight }} times
+          </p>
+          
+          <div
+            class="absolute top-4 right-4 bg-[#6A42C2] text-white text-xs font-medium px-3 py-2 rounded-lg"
+          >
+            {{ species.points }} Points
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+  
 </div>

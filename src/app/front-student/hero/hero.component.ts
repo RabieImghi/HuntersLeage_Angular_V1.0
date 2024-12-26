@@ -6,12 +6,13 @@ import { AboutComponent } from '../about/about.component';
 import { CountdownTimerComponent } from '../footer/countdown-timer/countdown-timer.component';
 import { TestimonialsComponent } from '../testimonials/testimonials.component';
 import { FooterComponent } from '../footer/footer.component';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, ServiceComponent, AboutComponent, CountdownTimerComponent, TestimonialsComponent, FooterComponent],
+  imports: [CommonModule, ServiceComponent, AboutComponent, CountdownTimerComponent, TestimonialsComponent, FooterComponent, RouterModule],
   templateUrl: './hero.component.html'
 })
 export class HeroComponent {

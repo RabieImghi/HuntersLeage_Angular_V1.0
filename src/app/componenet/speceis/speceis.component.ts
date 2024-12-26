@@ -8,6 +8,7 @@ interface Species {
   minimumWeight: number;
   difficulty: string;
   points: number;
+  hunted: number;
 }
 @Component({
   selector: 'app-speceis',
@@ -31,57 +32,65 @@ export class SpeceisComponent {
       name: 'Tiger',
       category: 'BIG_GAME',
       minimumWeight: 100,
-      difficulty: 'Hard',
+      difficulty: 'LEGENDARY',
       points: 50,
+      hunted : 10
     },
     {
       name: 'Eagle',
       category: 'BIRD',
       minimumWeight: 5,
-      difficulty: 'Medium',
+      difficulty: 'EPIC',
       points: 30,
+      hunted : 30
     },
     {
       name: 'Shark',
       category: 'SEA',
       minimumWeight: 500,
-      difficulty: 'Hard',
+      difficulty: 'COMMON',
       points: 60,
+      hunted : 40
     },
     {
       name: 'Dolphin',
       category: 'SEA',
       minimumWeight: 200,
-      difficulty: 'Medium',
+      difficulty: 'COMMON',
       points: 40,
+      hunted : 60
     },
     {
       name: 'Butterfly',
       category: 'BIRD',
       minimumWeight: 0.02,
-      difficulty: 'Easy',
+      difficulty: 'RARE',
       points: 5,
+      hunted : 30
     },
     {
       name: 'Elephant',
       category: 'BIG_GAME',
       minimumWeight: 500,
-      difficulty: 'Hard',
+      difficulty: 'LEGENDARY',
       points: 60,
+      hunted : 50
     },
     {
       name: 'Hawk',
       category: 'BIRD',
       minimumWeight: 6,
-      difficulty: 'Medium',
+      difficulty: 'EPIC',
       points: 35,
+      hunted : 60
     },
     {
       name: 'Chameleon',
       category: 'BIG_GAME',
       minimumWeight: 2,
-      difficulty: 'Medium',
+      difficulty: 'EPIC',
       points: 20,
+      hunted : 43
     },
   ];
 }

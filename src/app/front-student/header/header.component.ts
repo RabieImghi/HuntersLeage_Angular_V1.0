@@ -10,7 +10,7 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class HeaderComponent {
   isMenuOpen = false;
-  activeLink = 'home';
+  activeLink = '';
   isScrolled = false;
 
   constructor(private router: Router) {}
