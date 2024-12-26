@@ -21,8 +21,7 @@ export class AboutComponent {
 
   playVideo(): void {
     this.videoPlayer.nativeElement.play();
-    // Optionally, hide the play button after playing
-    
+
   }
 
  

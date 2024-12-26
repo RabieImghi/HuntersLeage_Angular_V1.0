@@ -1,0 +1,105 @@
+<section class="bg-gray-100 py-12">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">
+        What Our Customers Say
+      </h2>
+      <p class="text-center text-gray-600 mb-6">
+        Hear from our satisfied customers about their experiences with our products and services.
+      </p>
+  
+      <div class="relative overflow-hidden " *ngIf="testimonials.length > 0">
+        <div
+          class="flex transition-transform duration-500 ease-in-out"
+          [style.transform]="'translateX(' + slideOffset + '%)'"
+        >
+          <div
+            *ngFor="let testimonial of testimonials; let i = index"
+            class="flex-none w-full sm:w-1/2 lg:w-1/3 p-4 md:p-12"
+           
+           
+          >
+            <div
+            data-aos="zoom-in"
+              class="max-w-xs overflow-hidden bg-white border border-gray-200 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg hover:scale-105 relative group"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gray-100 to-white opacity-0 transition-opacity duration-500 group-hover:opacity-30 blur-md"
+              ></div>
+              <div class="p-6 relative z-10">
+                <p class="text-xl font-semibold text-gray-800">
+                  {{ testimonial.name }}
+                </p>
+                <p class="mt-2 text-gray-600">{{ testimonial.feedback }}</p>
+                <div class="flex items-center mt-4 text-gray-600">
+                  <svg
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 fill-current text-yellow-500"
+                  >
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path
+                      d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                    ></path>
+                  </svg>
+                  <span class="ml-2">
+                    {{ testimonial.rating }} ({{ testimonial.reviews }} reviews)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div
+          class="absolute inset-y-0 left-0 flex items-center"
+          (click)="prevSlide()"
+        >
+          <button
+            class="bg-white border border-gray-200 shadow-md rounded-full p-2 hover:bg-gray-200 focus:outline-none"
+            aria-label="Previous Slide"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+          </button>
+        </div>
+  
+        <div
+          class="absolute inset-y-0 right-0 flex items-center"
+          (click)="nextSlide()"
+        >
+          <button
+            class="bg-white border border-gray-200 shadow-md rounded-full p-2 hover:bg-gray-200 focus:outline-none"
+            aria-label="Next Slide"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  

@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './front-student/header/header.component';
 
 @Component({
   selector: 'app-root',
