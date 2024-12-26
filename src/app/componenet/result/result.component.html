@@ -1,0 +1,49 @@
+<div class="container mt-[100px] mx-auto space-y-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">User Past Competitions</h2>
+    
+    <div class="flex items-center gap-4 mb-6">
+      <img
+        [src]="userHistoricResponse.user.avatar"
+        alt="User Avatar"
+        class="w-10 h-10 rounded-full"
+      />
+      <div class="text-lg font-semibold text-gray-700">
+        {{ userHistoricResponse.user.name }}
+      </div>
+    </div>
+  
+    <div
+      *ngFor="let competition of userHistoricResponse.pastCompetitions"
+      class="flex w-full bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-all"
+    >
+      <div class="w-1/2 relative">
+        <img
+          src="assets/hero.png"
+          alt="Competition Image"
+          class="object-cover w-full h-40"
+        />
+      </div>
+  
+      <div class="w-[1px] bg-gray-200 mx-6"></div>
+  
+      <div class="flex-1 py-4 px-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">
+              Competition Code: {{ competition.code }}
+            </h3>
+            <p class="text-sm text-gray-500">
+              Species Type: {{ competition.speciesType }}
+            </p>
+          </div>
+          <div class="px-3 py-1 bg-[#6A42C2] text-white text-xs font-medium rounded-lg">
+            Rank: {{ competition.rank }}
+          </div>
+        </div>
+        <p class="text-sm text-gray-500">
+          Score: {{ competition.score }}
+        </p>
+      </div>
+    </div>
+  </div>
+  
