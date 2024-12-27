@@ -7,41 +7,45 @@
     ></div>
   
     <aside
-      class="fixed md:static top-0 left-0 w-64 h-full bg-gray-50 border-r z-50 transform md:translate-x-0"
-      [@slideInOut]="menuState"
-      [class.hidden]="menuState === 'out' && isMobile"
+        class="sticky top-0 w-64 h-screen bg-gray-50 border-r z-50 transform md:translate-x-0"
+        [@slideInOut]="menuState"
+        [class.hidden]="menuState === 'out' && isMobile"
     >
-      <div class="p-6">
+        <div class="p-6">
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2 font-semibold text-xl">
+            <div routerLink="" class="cursor-pointer items-center gap-2 font-semibold text-xl">
             <span class="text-[#6A42C2]">Hunters</span>
             <span class="text-black">-League</span>
-          </div>
-          <button
+            </div>
+            <button
             class="md:hidden p-2 bg-transparent hover:bg-gray-100 rounded-md"
             (click)="closeMenu()"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div class="h-[calc(100vh-5rem)] overflow-y-auto space-y-4 py-4">
-        <div class="px-3 py-2">
-          <h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">
-            Menu
-          </h2>
-          <div class="space-y-1">
-            <button
-              *ngFor="let item of menuItems"
-              class="w-full flex items-center gap-4 py-2 px-4 text-left bg-transparent hover:bg-gray-100 rounded-md"
             >
-              <mat-icon>{{ item.icon }}</mat-icon>
-              <span>{{ item.name }}</span>
+            <mat-icon>close</mat-icon>
             </button>
-          </div>
         </div>
-      </div>
+        </div>
+        <div class="h-[calc(100vh-5rem)] overflow-y-auto space-y-4 py-4">
+        <div class="px-3 py-2">
+            <h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Menu
+            </h2>
+            <div class="space-y-1">
+            <button
+                *ngFor="let item of menuItems"
+                (click)="changeActiveLink(item.name)"
+                class="w-full flex items-center gap-4 py-2 px-4 text-left hover:bg-[#6A42C2] hover:text-white rounded-md"
+                [ngClass]="{ 'bg-[#6A42C2] text-white': activeLink === item.name }"
+                routerLink="{{ item.link }}"
+            >
+                <mat-icon>{{ item.icon }}</mat-icon>
+                <span>{{ item.name }}</span>
+            </button>
+            </div>
+        </div>
+        </div>
     </aside>
+  
   
     <div class="flex-1 flex flex-col">
       <header class="h-14 border-b flex items-center gap-4 px-6 bg-white sticky top-0 z-30">
@@ -85,7 +89,7 @@
       <main class="p-6">
         <div class="space-y-1">
           <h1 class="text-2xl font-semibold">Welcome Back, Jack Miller</h1>
-          <p class="text-gray-500">Let's dive in and get things done.</p>
+            <router-outlet></router-outlet>
         </div>
       </main>
     </div>

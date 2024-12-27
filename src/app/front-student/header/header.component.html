@@ -1,14 +1,12 @@
 <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
       <!-- Logo Section -->
-      <div class="flex items-center">
+      <div routerLink="" class=" cursor-pointer flex items-center">
         <span class="text-2xl font-bold">
           <span class="text-[#6A42C2]">Hunters</span>
           <span class="text-black">-League</span>
         </span>
       </div>
-  
-      <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-6">
         <a
           routerLink=""
@@ -49,6 +47,14 @@
           class="text-sm cursor-pointer font-semibold hover:text-[#6A42C2] pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
         >
           Top Three User
+        </a>
+        <a
+          routerLink="admin"
+          [ngClass]="{ 'border-b-2 border-[#6A42C2] text-[#6A42C2]': activeLink === 'admin' }"
+          (click)="setActiveLink('admin')"
+          class="text-sm cursor-pointer font-semibold hover:text-[#6A42C2] pb-1 hover:border-b-2 hover:border-[#6A42C2] transition-all duration-300"
+        >
+          Admin
         </a>
       </nav>
 

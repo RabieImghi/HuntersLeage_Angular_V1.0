@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { RouterModule, RouterOutlet} from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 @Component({
   selector: 'app-home-admin',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, RouterModule, RouterOutlet],
   templateUrl: './home-admin.component.html',
   animations: [
     trigger('slideInOut', [
@@ -29,6 +30,7 @@ export class HomeAdminComponent {
   menuState = 'in';
   backdropState = 'hidden'; 
   isMobile = false; 
+  activeLink = 'Analytics';
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
@@ -58,13 +60,17 @@ export class HomeAdminComponent {
     }
   }
 
+  changeActiveLink(link: string){
+    this.activeLink = link;
+  }
+
   menuItems = [
-    { name: 'Analytics', icon: 'analytics' },
-    { name: 'Competitions', icon: 'emoji_events' },
-    { name: 'Hunts', icon: 'track_changes' },
-    { name: 'Species', icon: 'pets' },
-    { name: 'Participations', icon: 'assignment_turned_in' },
-    { name: 'Users', icon: 'group' },
+    { name: 'Analytics', icon: 'analytics', link: '/admin/analytics' },
+    { name: 'Competitions', icon: 'emoji_events', link: '/admin/competitions' },
+    { name: 'Hunts', icon: 'track_changes', link: '/admin/hunts' },
+    { name: 'Species', icon: 'pets', link: '/admin/species' },
+    { name: 'Participations', icon: 'assignment_turned_in', link: '/admin/participation' },
+    { name: 'Users', icon: 'group', link: '/admin/users' },
   ];
 
 }

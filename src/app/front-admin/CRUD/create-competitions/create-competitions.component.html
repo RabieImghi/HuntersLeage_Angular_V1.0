@@ -1,0 +1,190 @@
+<div class="relative p-6">
+    <!-- Trigger Button -->
+    <button
+      (click)="toggleModal(true)"
+      class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1"
+    >
+      <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Create new!</span>
+      <span
+        class="absolute w-full h-full bg-[#6A42C2] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"
+      ></span>
+      <span
+        class="absolute w-full h-full bg-[#6A42C2] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
+      ></span>
+    </button>
+  
+    <div
+      *ngIf="isModalOpen"
+      @fadeAnimation
+      class="fixed inset-0 bg-slate-900/20 backdrop-blur grid place-items-center z-50 cursor-pointer"
+      (click)="toggleModal(false)"
+    >
+      <div
+        @scaleAnimation
+        class="bg-white p-6 rounded-lg w-full max-w-lg shadow-xl relative cursor-default"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="text-[250px] text-white/10 rotate-12 absolute -top-24 -left-24">!</div>
+        <div class="relative z-10">
+          <div class="bg-[#6A42C2] w-16 h-16 mb-2 rounded-full text-3xl text-indigo-600 grid place-items-center mx-auto">
+            <i class="fi-alert-circle"></i>
+          </div>
+          
+          
+          
+
+          <form class="max-w-md mx-auto">
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="code"
+                id="code"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+              />
+              <label
+                for="code"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Code
+              </label>
+            </div>
+          
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="location"
+                id="location"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+              />
+              <label
+                for="location"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Location
+              </label>
+            </div>
+          
+            <div class="relative z-0 w-full mb-5 group">
+              <input
+                type="datetime-local"
+                name="date"
+                id="date"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+              />
+              <label
+                for="date"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Date
+              </label>
+            </div>
+          
+            <div class="relative z-0 w-full mb-5 group">
+              <select
+                name="speciesType"
+                id="speciesType"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                required
+              >
+                <option value="" disabled selected>Choose Species Type</option>
+                <option value="SEA">SEA (9)</option>
+                <option value="BIG_GAME">BIG GAME (3)</option>
+                <option value="BIRD">BIRD (5)</option>
+              </select>
+              <label
+                for="speciesType"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Species Type
+              </label>
+            </div>
+            
+          
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-5 group">
+                <input
+                  type="number"
+                  name="minParticipants"
+                  id="minParticipants"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="minParticipants"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Min Participants
+                </label>
+              </div>
+              <div class="relative z-0 w-full mb-5 group">
+                <input
+                  type="number"
+                  name="maxParticipants"
+                  id="maxParticipants"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="maxParticipants"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Max Participants
+                </label>
+              </div>
+            </div>
+          
+            <div class="relative z-0 w-full mb-5 group">
+              <select
+                name="openRegistration"
+                id="openRegistration"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                required
+              >
+                <option value="" disabled selected>Choose...</option>
+                <option value="true">Open</option>
+                <option value="false">Closed</option>
+              </select>
+              <label
+                for="openRegistration"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Open Registration
+              </label>
+            </div>
+          
+            <div class="flex gap-2">
+              <button
+                (click)="toggleModal(false)"
+                class="font-semibold bg-grey-500 w-full py-2 rounded"
+              >
+                Close
+              </button>
+              <button
+                class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1"
+              >
+                <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Submit</span>
+                <span
+                  class="absolute w-full h-full bg-[#6A42C2] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"
+                ></span>
+                <span
+                  class="absolute w-full h-full bg-[#6A42C2] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
+                ></span>
+              </button>
+            </div>
+          </form>
+          
+  
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  

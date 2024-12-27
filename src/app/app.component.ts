@@ -24,8 +24,7 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        const hiddenRoutes = ['/login', '/register', '/admin'];
-        this.showHeader = !hiddenRoutes.includes(event.url);
+        this.showHeader = !event.url.startsWith('/admin') && event.url !== '/login' && event.url !== '/register';
       }
     });
   }
