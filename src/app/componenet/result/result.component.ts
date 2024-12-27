@@ -11,7 +11,6 @@ export class ResultComponent {
   userHistoricResponse = {
     user: {
       name: 'Ava M. Charlotte',
-      avatar: '/placeholder.svg?height=32&width=32',
     },
     pastCompetitions: [
       {

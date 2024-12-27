@@ -3,7 +3,7 @@
     
     <div class="flex items-center gap-4 mb-6">
       <img
-        [src]="userHistoricResponse.user.avatar"
+        src="assets/ME.png"
         alt="User Avatar"
         class="w-10 h-10 rounded-full"
       />
@@ -14,15 +14,17 @@
   
     <div
       *ngFor="let competition of userHistoricResponse.pastCompetitions"
-      class="flex w-full bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-all"
+      class="flex w-full bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-all transform transition-transform duration-300 hover:translate-y-[-10px] hover:scale-105 group"
     >
-      <div class="w-1/2 relative">
+    <div class="w-1/2 relative group p-2">
         <img
           src="assets/hero.png"
           alt="Competition Image"
-          class="object-cover w-full h-40"
+          class="object-cover w-full h-40 opacity-40 transition-all duration-300 rounded"
         />
+        <div class="absolute inset-0 bg-black bg-opacity-20 m-2 group-hover:bg-opacity-40 rounded transition-all duration-300"></div>
       </div>
+      
   
       <div class="w-[1px] bg-gray-200 mx-6"></div>
   
@@ -40,7 +42,7 @@
             Rank: {{ competition.rank }}
           </div>
         </div>
-        <p class="text-sm text-gray-500">
+        <p class="text-sm text-[#6A42C2] font-bold">
           Score: {{ competition.score }}
         </p>
       </div>

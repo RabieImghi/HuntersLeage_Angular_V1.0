@@ -6,6 +6,8 @@ import { LoginComponent } from './componenet/auth/login/login.component';
 import { RegisterComponent } from './componenet/auth/register/register.component';
 import { TopThreeComponent } from './componenet/top-three/top-three.component';
 import { ResultComponent } from './componenet/result/result.component';
+
+import { HomeAdminComponent } from './front-admin/home-admin/home-admin.component';
 export const routes: Routes = [
     {path: '', component: HeroComponent},
     {path: 'competitions', component: CompitionsComponent},
@@ -13,5 +15,7 @@ export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'top-three-user', component: TopThreeComponent},
-    {path: 'results', component: ResultComponent}
+    {path: 'results', component: ResultComponent},
+    {path: 'admin', component: HomeAdminComponent}
 ];
+
