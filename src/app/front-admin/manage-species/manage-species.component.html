@@ -1,1 +1,80 @@
-<p>manage-species works!</p>
+<div class="relative">
+    <div class="flex justify-end mb-4">
+      <app-create-species></app-create-species>
+    </div>
+  
+    <div class="p-6 overflow-scroll px-0">
+      <table class="w-full min-w-max table-auto text-left">
+        <thead>
+          <tr>
+            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <p class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">
+                Name
+              </p>
+            </th>
+            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <p class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">
+                Category
+              </p>
+            </th>
+            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <p class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">
+                Minimum Weight
+              </p>
+            </th>
+            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <p class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">
+                Difficulty
+              </p>
+            </th>
+            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <p class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">
+                Points
+              </p>
+            </th>
+            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <p class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">
+                Actions
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let specie of species">
+            <td class="p-4 border-b border-blue-gray-50">
+              <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">
+                {{ specie.name }}
+              </p>
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                {{ specie.category }}
+              </p>
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                {{ specie.minimumWeight }}
+              </p>
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                {{ specie.difficulty }}
+              </p>
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">
+                {{ specie.points }}
+              </p>
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              <div class="flex gap-2">
+                <app-update-species [specie]="specie"></app-update-species>
+                <app-delete-species [specie]="specie"></app-delete-species>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

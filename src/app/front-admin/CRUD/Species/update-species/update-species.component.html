@@ -1,0 +1,169 @@
+<div class="relative">
+    <button
+    (click)="toggleModal(true)"
+        class="flex justify-center items-center gap-2 px-5 py-1 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#38bdf8] via-[#0ea5e9] to-[#0284c7] hover:shadow-xl hover:shadow-blue-500 hover:scale-105 duration-300 hover:from-[#0284c7] hover:to-[#38bdf8]"
+        >
+        <svg viewBox="0 0 15 15" class="w-5 fill-white">
+            <svg
+            class="w-6 h-6"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            >
+            <path
+                d="M16.862 3.487a2.108 2.108 0 012.977 2.978l-8.03 8.03a2.108 2.108 0 01-1.49.617H7.024a.75.75 0 01-.75-.75v-2.295c0-.56.222-1.098.617-1.492l8.03-8.03zm0 0L14.5 5.85"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+            ></path>
+            </svg>
+            Update
+        </svg>
+    </button>
+  
+    <div
+      *ngIf="isModalOpen"
+      class="fixed inset-0 bg-slate-900/20 backdrop-blur grid place-items-center z-50 cursor-pointer"
+      (click)="toggleModal(false)"
+    >
+      <div
+        class="bg-white p-6 rounded-lg w-full max-w-lg shadow-xl relative cursor-default"
+        (click)="$event.stopPropagation()"
+      >
+        <h2 class="text-2xl font-semibold text-center mb-6">Create New Species</h2>
+        <form  class="max-w-md mx-auto">
+  
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              [value]="specie.name"
+              required
+            />
+            <label
+              for="name"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Species Name
+            </label>
+          </div>
+  
+          <div class="relative z-0 w-full mb-5 group">
+            <select
+              id="category"
+              name="category"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              required
+            >
+              <option value="" disabled selected>Choose Category</option>
+              <option *ngFor="let type of speciesTypes" [value]="type.value" 
+              [selected]="type.value === specie.category"
+              >{{ type.label }}</option>
+            </select>
+            <label
+              for="category"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Category
+            </label>
+          </div>
+  
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="number"
+              id="minimumWeight"
+              name="minimumWeight"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              [value]="specie.minimumWeight"
+              required
+            />
+            <label
+              for="minimumWeight"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Minimum Weight (Kg)
+            </label>
+          </div>
+  
+          <div class="relative z-0 w-full mb-5 group">
+            <div class="flex items-center space-x-6">
+              <label
+                *ngFor="let difficulty of difficulties"
+                class="relative flex items-center cursor-pointer"
+              >
+                <input
+                  class="sr-only peer"
+                  name="difficulty"
+                  type="radio"
+                  [value]="difficulty.value"
+                  [checked]="difficulty.value===specie.difficulty"
+                  required
+                />
+                <div
+                  class="w-6 h-6 bg-transparent border-2 rounded-full transition duration-300 ease-in-out"
+                  [ngClass]="{
+                    'border-green-500 peer-checked:bg-green-500 peer-checked:border-green-500 peer-hover:shadow-lg peer-hover:shadow-green-500/50 peer-checked:shadow-lg peer-checked:shadow-green-500/50':
+                      difficulty.value === 'COMMON',
+                    'border-yellow-500 peer-checked:bg-yellow-500 peer-checked:border-yellow-500 peer-hover:shadow-lg peer-hover:shadow-yellow-500/50 peer-checked:shadow-lg peer-checked:shadow-yellow-500/50':
+                      difficulty.value === 'RARE',
+                    'border-orange-500 peer-checked:bg-orange-500 peer-checked:border-orange-500 peer-hover:shadow-lg peer-hover:shadow-orange-500/50 peer-checked:shadow-lg peer-checked:shadow-orange-500/50':
+                      difficulty.value === 'EPIC',
+                    'border-red-500 peer-checked:bg-red-500 peer-checked:border-red-500 peer-hover:shadow-lg peer-hover:shadow-red-500/50 peer-checked:shadow-lg peer-checked:shadow-red-500/50':
+                      difficulty.value === 'LEGENDARY'
+                  }"
+                ></div>
+                <span class="ml-2 text-gray-900">{{ difficulty.value }}</span>
+              </label>
+            </div>
+          </div>
+          
+  
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="number"
+              id="points"
+              name="points"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              [value]="specie.points"
+              required
+            />
+            <label
+              for="points"
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Points
+            </label>
+          </div>
+  
+          <div class="flex gap-2">
+            <button
+              type="button"
+              (click)="toggleModal(false)"
+              class="font-semibold bg-gray-500 w-full py-2 rounded text-white"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1"
+            >
+              <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Submit</span>
+              <span
+                class="absolute w-full h-full bg-[#6A42C2] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"
+              ></span>
+              <span
+                class="absolute w-full h-full bg-[#6A42C2] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
+              ></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
