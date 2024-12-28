@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateCompetitionsComponent } from '../CRUD/create-competitions/create-competitions.component';
-import { DeleteCompetitionsComponent } from '../CRUD/delete-competitions/delete-competitions.component';
-import { UpdateCompetitionsComponent } from '../CRUD/update-competitions/update-competitions.component';
+import { CreateCompetitionsComponent } from '../CRUD/competitions/create-competitions/create-competitions.component';
+import { DeleteCompetitionsComponent } from '../CRUD/competitions/delete-competitions/delete-competitions.component';
+import { UpdateCompetitionsComponent } from '../CRUD/competitions/update-competitions/update-competitions.component';
 
 interface CompetitionResponseVm {
   id: string;
