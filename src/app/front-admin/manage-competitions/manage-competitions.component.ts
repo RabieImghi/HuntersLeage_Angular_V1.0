@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateCompetitionsComponent } from '../CRUD/create-competitions/create-competitions.component';
 import { DeleteCompetitionsComponent } from '../CRUD/delete-competitions/delete-competitions.component';
+import { UpdateCompetitionsComponent } from '../CRUD/update-competitions/update-competitions.component';
 
 interface CompetitionResponseVm {
   id: string;
@@ -17,7 +18,7 @@ interface CompetitionResponseVm {
 @Component({
   selector: 'app-manage-competitions',
   standalone: true,
-  imports: [CommonModule, CreateCompetitionsComponent, DeleteCompetitionsComponent],  
+  imports: [CommonModule, CreateCompetitionsComponent, DeleteCompetitionsComponent, UpdateCompetitionsComponent],  
   templateUrl: './manage-competitions.component.html'
 })
 
@@ -30,7 +31,7 @@ export class ManageCompetitionsComponent {
       code: 'COMP-001',
       location: 'New York City',
       date: '2024-03-12T08:00:00',
-      speciesType: 'Birds',
+      speciesType: 'BRID',
       minParticipants: 10,
       maxParticipants: 50,
       openRegistration: true,
@@ -40,10 +41,20 @@ export class ManageCompetitionsComponent {
       code: 'COMP-002',
       location: 'Los Angeles',
       date: '2024-03-14T09:00:00',
-      speciesType: 'Fish',
+      speciesType: 'BIG_GAME',
       minParticipants: 5,
       maxParticipants: 20,
       openRegistration: false,
+    },
+    {
+      id: '123e4567-e89b-12d3-a451-456614174001',
+      code: 'COMP-003',
+      location: 'Morrocco',
+      date: '2024-03-14T09:00:00',
+      speciesType: 'SEA',
+      minParticipants: 10,
+      maxParticipants: 20,
+      openRegistration: true,
     },
   ];
 
