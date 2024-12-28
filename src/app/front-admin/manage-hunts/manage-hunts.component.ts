@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CreateHuntComponent } from '../CRUD/hunts/create-hunt/create-hunt.component';
+import { DeleteHuntComponent } from '../CRUD/hunts/delete-hunt/delete-hunt.component';
+import { UpdateHuntComponent } from '../CRUD/hunts/update-hunt/update-hunt.component';
+
 interface Species {
   id: string;
   name: string;
@@ -18,7 +22,7 @@ interface Hunt {
 @Component({
   selector: 'app-manage-hunts',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateHuntComponent, DeleteHuntComponent, UpdateHuntComponent],
   templateUrl: './manage-hunts.component.html'
 })
 export class ManageHuntsComponent {

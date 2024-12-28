@@ -1,7 +1,8 @@
 <div class="relative">
    
     <div class="flex justify-end mb-4">
-      </div>
+        <app-create-hunt></app-create-hunt>
+    </div>
 
       
     <div class="p-6 overflow-scroll px-0">
@@ -54,8 +55,8 @@
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="flex gap-2">
-                            
-                               
+                            <app-update-hunt [hunt]="hunt"></app-update-hunt>
+                            <app-delete-hunt [hunt]="hunt"></app-delete-hunt> 
                         </div>
                     </td>
                 </tr>
