@@ -69,7 +69,6 @@ export class HomeAdminComponent {
     { name: 'Competitions', icon: 'emoji_events', link: '/admin/competitions' },
     { name: 'Hunts', icon: 'track_changes', link: '/admin/hunts' },
     { name: 'Species', icon: 'pets', link: '/admin/species' },
-    { name: 'Participations', icon: 'assignment_turned_in', link: '/admin/participation' },
     { name: 'Users', icon: 'group', link: '/admin/users' },
   ];
 
