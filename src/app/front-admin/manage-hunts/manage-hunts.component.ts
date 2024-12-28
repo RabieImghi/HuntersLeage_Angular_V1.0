@@ -17,6 +17,7 @@ interface Hunt {
   id: string;
   species: any;
   weight: number;
+  participation: any;
 }
 
 @Component({
@@ -39,6 +40,9 @@ export class ManageHuntsComponent {
         points: 50,
       },
       weight: 100,
+      participation: {
+        id: "123e4567-e89b-12d3-a456-426614174021",
+      }
     },
     {
       id: '123e4567-e89b-12d3-a456-426614174001',
@@ -51,6 +55,9 @@ export class ManageHuntsComponent {
         points: 30,
       },
       weight: 5,
+      participation: {
+        id: "123e4567-e89b-12d3-a456-426614174421",
+      }
     },
     {
       id: '123e4567-e89b-12d3-a451-456614174001',
@@ -63,6 +70,9 @@ export class ManageHuntsComponent {
         points: 60,
       },
       weight: 500,
+      participation: {
+        id: "123e4567-e89b-12d3-a456-426614175021",
+      }
     },
     {
       id: '123e4567-e89b-12d3-a451-456614174001',
@@ -75,6 +85,9 @@ export class ManageHuntsComponent {
         points: 40,
       },
       weight: 200,
+      participation: {
+        id: "123e4567-e89b-12d3-a456-426614174061",
+      }
     },
     {
       id: '123e4567-e89b-12d3-a451-456614174001',
@@ -87,6 +100,9 @@ export class ManageHuntsComponent {
         points: 5,
       },
       weight: 0.1,
+      participation: {
+        id: "123e4567-e89b-12d4-a456-426614174021",
+      }
     },
   ];
 
