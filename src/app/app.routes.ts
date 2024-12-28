@@ -11,7 +11,7 @@ import { ManageCompetitionsComponent } from './front-admin/manage-competitions/m
 import { ManageHuntsComponent } from './front-admin/manage-hunts/manage-hunts.component';
 import { ManageSpeciesComponent } from './front-admin/manage-species/manage-species.component';
 import { ManageUsersComponent } from './front-admin/manage-users/manage-users.component';
-import { AnalysticsComponent } from './analystics/analystics.component';
+import { AnalysticsComponent } from './front-admin/analystics/analystics.component';
 
 export const routes: Routes = [
     {path: '', component: HeroComponent},
@@ -27,7 +27,7 @@ export const routes: Routes = [
         {path: 'species', component: ManageSpeciesComponent},
         {path: 'users', component: ManageUsersComponent},
         {path: 'analytics', component: AnalysticsComponent}
-        
+
     ]},
 ];
 

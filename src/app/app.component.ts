@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'hunters_leage_v1.0';
+  title = 'hunters_leage_v1.0'; 
   cursorX: number = 0;
   cursorY: number = 0;
   showHeader = true;
