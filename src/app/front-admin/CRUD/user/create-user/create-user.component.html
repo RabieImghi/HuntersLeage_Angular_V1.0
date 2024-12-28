@@ -1,1 +1,195 @@
-<p>create-user works!</p>
+<div class="relative p-6">
+    <!-- Trigger Button -->
+    <button
+      (click)="toggleModal(true)"
+      class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1"
+    >
+      <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Create New User</span>
+      <span
+        class="absolute w-full h-full bg-[#6A42C2] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"
+      ></span>
+      <span
+        class="absolute w-full h-full bg-[#6A42C2] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
+      ></span>
+    </button>
+  
+    <div
+      *ngIf="isModalOpen"
+      class="fixed inset-0 bg-slate-900/20 backdrop-blur grid place-items-center z-50 cursor-pointer"
+      (click)="toggleModal(false)"
+    >
+      <div
+        class="bg-white p-6 rounded-lg w-full max-w-lg shadow-xl relative cursor-default"
+        (click)="$event.stopPropagation()"
+      >
+        <h2 class="text-2xl font-semibold text-center mb-4 text-[#6A42C2]">Create New User</h2>
+        <form >
+          <!-- Username -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              formControlName="username"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Username
+            </label>
+          </div>
+  
+          <!-- Password -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="password"
+              formControlName="password"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Password
+            </label>
+          </div>
+  
+          <!-- First Name -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              formControlName="firstName"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              First Name
+            </label>
+          </div>
+  
+          <!-- Last Name -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              formControlName="lastName"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Last Name
+            </label>
+          </div>
+  
+          <!-- CIN -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              formControlName="cin"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              CIN
+            </label>
+          </div>
+  
+          <!-- Email -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="email"
+              formControlName="email"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Email
+            </label>
+          </div>
+  
+          <!-- Nationality -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              formControlName="nationality"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Nationality
+            </label>
+          </div>
+  
+          <!-- License Expiration Date -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="date"
+              formControlName="licenseExpirationDate"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              License Expiration Date
+            </label>
+          </div>
+  
+          <!-- Join Date -->
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="date"
+              formControlName="joinDate"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Join Date
+            </label>
+          </div>
+  
+          <!-- Action Buttons -->
+          <div class="flex gap-2">
+            <button
+              type="button"
+              (click)="toggleModal(false)"
+              class="font-semibold bg-gray-500 w-full py-2 rounded text-white"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1"
+            >
+              <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Submit</span>
+              <span
+                class="absolute w-full h-full bg-[#6A42C2] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"
+              ></span>
+              <span
+                class="absolute w-full h-full bg-[#6A42C2] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
+              ></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

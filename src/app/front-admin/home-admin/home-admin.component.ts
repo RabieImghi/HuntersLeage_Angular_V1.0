@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { RouterModule, RouterOutlet} from '@angular/router';
+import { Router, ActivatedRoute, RouterModule, RouterOutlet} from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
@@ -32,7 +32,8 @@ export class HomeAdminComponent {
   isMobile = false; 
   activeLink = 'Analytics';
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router,
+    private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
@@ -43,6 +44,12 @@ export class HomeAdminComponent {
         this.isMobile = false;
         this.menuState = 'in'; 
       }
+    });
+
+    this.updateActiveLink(this.router.url);
+
+    this.router.events.subscribe(() => {
+      this.updateActiveLink(this.router.url);
     });
   }
 
@@ -59,7 +66,12 @@ export class HomeAdminComponent {
       this.backdropState = 'hidden';
     }
   }
+  updateActiveLink(url: string) {
+    const matchedItem = this.menuItems.find(item => url.includes(item.link));
+    this.activeLink = matchedItem ? matchedItem.name : '';
+  }
 
+  
   changeActiveLink(link: string){
     this.activeLink = link;
   }

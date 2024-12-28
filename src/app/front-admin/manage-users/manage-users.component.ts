@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DetailUserComponent } from '../CRUD/user/detail-user/detail-user.component';
 import { UpdateUserComponent } from '../CRUD/user/update-user/update-user.component';
 import { DeleteUserComponent } from '../CRUD/user/delete-user/delete-user.component';
+import { CreateUserComponent } from '../CRUD/user/create-user/create-user.component';
 
 
 interface UserResponse {
@@ -21,7 +22,7 @@ interface UserResponse {
 @Component({
   selector: 'app-manage-users',
   standalone: true,
-  imports: [CommonModule, DetailUserComponent, UpdateUserComponent, DeleteUserComponent],
+  imports: [CommonModule, DetailUserComponent, UpdateUserComponent, DeleteUserComponent,CreateUserComponent],
   templateUrl: './manage-users.component.html'
 })
 export class ManageUsersComponent {
@@ -30,7 +31,7 @@ export class ManageUsersComponent {
       id: '1',
       username: 'george.johnson',
       email: 'george.johnson@example.com',
-      role: 'Support Specialist',
+      role: 'ADMIN',
       firstName: 'George',
       lastName: 'Johnson',
       cin: '123456789',
@@ -42,7 +43,7 @@ export class ManageUsersComponent {
       id: '2',
       username: 'jane.doe',
       email: 'jane.doe@example.com',
-      role: 'Administrator',
+      role: 'JURY',
       firstName: 'Jane',
       lastName: 'Doe',
       cin: '987654321',
@@ -54,7 +55,7 @@ export class ManageUsersComponent {
       id: '3',
       username: 'john.smith',
       email: 'john.smith@example.com',
-      role: 'Manager',
+      role: 'MEMBER',
       firstName: 'John',
       lastName: 'Smith',
       cin: '456123789',
@@ -66,7 +67,7 @@ export class ManageUsersComponent {
       id: '4',
       username: 'emily.white',
       email: 'emily.white@example.com',
-      role: 'Engineer',
+      role: 'MEMBER',
       firstName: 'Emily',
       lastName: 'White',
       cin: '789321654',

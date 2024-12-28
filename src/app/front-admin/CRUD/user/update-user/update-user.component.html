@@ -1,10 +1,141 @@
-<button
-class="text-blue-500 hover:text-blue-600 mx-2 transition-transform duration-200 ease-in-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full"
-title="View">
+<div class="relative">
 
-<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-6 w-6"
-    xmlns="http://www.w3.org/2000/svg">
-    <path d="M12.3 4.85l6.85 6.85M14.5 2.5l-12 12v3h3l12-12-3-3zm0 0l3 3" stroke-width="2"
-        stroke-linejoin="round" stroke-linecap="round"></path>
-</svg>
-</button>
+    <button (click)="toggleModal(true)"
+        class="text-blue-500 hover:text-blue-600 mx-2 transition-transform duration-200 ease-in-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full"
+        title="View">
+
+        <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.3 4.85l6.85 6.85M14.5 2.5l-12 12v3h3l12-12-3-3zm0 0l3 3" stroke-width="2"
+                stroke-linejoin="round" stroke-linecap="round"></path>
+        </svg>
+    </button>
+
+    <div *ngIf="isModalOpen"
+        class="fixed inset-0 bg-slate-900/20 backdrop-blur grid place-items-center z-50 cursor-pointer"
+        (click)="toggleModal(false)">
+        <div class="bg-white p-6 rounded-lg w-full max-w-lg shadow-xl relative cursor-default"
+            (click)="$event.stopPropagation()">
+            <h2 class="text-2xl font-semibold text-center mb-4 text-[#6A42C2]">Update User</h2>
+            <form>
+                <!-- Username -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="username"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " [value]="user.username" required />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Username
+                    </label>
+                </div>
+
+                <!-- First Name -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="firstName"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " [value]="user.firstName" required />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        First Name
+                    </label>
+                </div>
+
+                <!-- Last Name -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="lastName"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " [value]="user.lastName" required />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Last Name
+                    </label>
+                </div>
+
+                <!-- CIN -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="cin"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " [value]="user.cin" required />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        CIN
+                    </label>
+                </div>
+
+                <!-- Email -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="email" formControlName="email"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " [value]="user.email" required />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Email
+                    </label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <select formControlName="role"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option *ngFor="let r of role" [selected]="r.value === user.role" [value]="r.value">
+                            {{ r.value }}
+                        </option>
+                    </select>
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Role
+                    </label>
+                </div>
+
+
+                <!-- Nationality -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="nationality"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " [value]="user.nationality" required />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Nationality
+                    </label>
+                </div>
+
+                <!-- License Expiration Date -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="date" formControlName="licenseExpirationDate"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        required [value]="user.licenseExpirationDate" />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        License Expiration Date
+                    </label>
+                </div>
+
+                <!-- Join Date -->
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="date" formControlName="joinDate"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        required [value]="user.joinDate" />
+                    <label
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Join Date
+                    </label>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-2">
+                    <button type="button" (click)="toggleModal(false)"
+                        class="font-semibold bg-gray-500 w-full py-2 rounded text-white">
+                        Close
+                    </button>
+                    <button type="submit"
+                        class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1">
+                        <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Submit</span>
+                        <span
+                            class="absolute w-full h-full bg-[#6A42C2] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"></span>
+                        <span
+                            class="absolute w-full h-full bg-[#6A42C2] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
