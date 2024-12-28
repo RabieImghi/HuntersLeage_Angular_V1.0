@@ -1,7 +1,7 @@
 <div class="font-[sans-serif] min-h-screen flex flex-col items-center justify-center">
   <div class="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(106,66,194,0.3)] rounded-md">
     <div class="md:max-w-md w-full px-4 py-4">
-      <form >
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="mb-12">
           <h3 class="text-[#6A42C2] text-3xl font-extrabold">Sign in</h3>
           <p class="text-sm mt-4 text-[#6A42C2]">
@@ -49,7 +49,6 @@
               class="w-[18px] h-[18px] absolute right-2 cursor-pointer"
               viewBox="0 0 128 128"
             >
-              <!-- SVG paths here -->
             </svg>
           </div>
         </div>

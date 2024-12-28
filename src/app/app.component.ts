@@ -33,7 +33,7 @@ export class AppComponent {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showHeader = !event.url.startsWith('/admin') && event.url !== '/login' && event.url !== '/register';
+        this.showHeader = !event.url.startsWith('/admin') && event.url !== '/login' && event.url !== '/register' && event.url !== '/Unauthorized';
       }
     });
   }

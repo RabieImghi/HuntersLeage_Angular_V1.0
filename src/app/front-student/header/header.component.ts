@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { TokenStorageServiceService } from '../../service/token-storage-service.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent {
   activeLink = '';
   isScrolled = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private tokenService: TokenStorageServiceService) {}
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -26,5 +27,12 @@ export class HeaderComponent {
 
   setActiveLink(link: string) {
     this.activeLink = link;
+  }
+  
+  getToken(){
+    return this.tokenService.getToken();
+  }
+  getRole(){
+    return this.tokenService.getRole();
   }
 }

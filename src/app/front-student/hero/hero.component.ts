@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 })
 export class HeroComponent {
 
+
   backgroundImage: string = 'assets/body2.jpg';
   gifImage: string = 'assets/slide.png';
 
@@ -28,5 +29,6 @@ export class HeroComponent {
       once: true,
     });
   }
+
 
 }
