@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateCompetitionsComponent } from '../CRUD/create-competitions/create-competitions.component';
+import { DeleteCompetitionsComponent } from '../CRUD/delete-competitions/delete-competitions.component';
 
 interface CompetitionResponseVm {
   id: string;
@@ -16,7 +17,7 @@ interface CompetitionResponseVm {
 @Component({
   selector: 'app-manage-competitions',
   standalone: true,
-  imports: [CommonModule, CreateCompetitionsComponent],  
+  imports: [CommonModule, CreateCompetitionsComponent, DeleteCompetitionsComponent],  
   templateUrl: './manage-competitions.component.html'
 })
 
