@@ -73,7 +73,7 @@
                 <option value="" disabled selected>Choose Species Type</option>
                 <option value="" disabled>Name : Category : Difficulty : MinWeight : Points</option>
                 <option  *ngFor="let specie of speciesList" [value]="specie.id"
-                        [selected]="specie.id === hunt.specie.id"
+                        [selected]="specie.id === hunt.species.id"
                 >
                     {{specie.name}} / {{specie.category}}/ {{specie.difficulty}} / {{specie.minimumWeight}} Kg / {{specie.points}}
                 </option>
@@ -97,7 +97,7 @@
                     <option value="" disabled>UserName : Competition Code : Score</option>
                     <option *ngFor="let participant of participantList"
                         [value]="participant.id"
-                        [selected]="participant.id === hunt.participation.id"
+                    
                     >
                     {{participant.user.username}} / {{participant.competition.code}} / {{participant.score}}</option>
                 </select>
@@ -108,7 +108,6 @@
                   Participant
                 </label>
               </div>
-            
           
           
             <div class="flex gap-2">
