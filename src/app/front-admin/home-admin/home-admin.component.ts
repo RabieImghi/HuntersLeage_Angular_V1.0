@@ -26,7 +26,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ],
 })
 export class HomeAdminComponent {
+  dropdownOpen = false;
 
+ 
   menuState = 'in';
   backdropState = 'hidden'; 
   isMobile = false; 
@@ -58,6 +60,9 @@ export class HomeAdminComponent {
       this.menuState = this.menuState === 'out' ? 'in' : 'out';
       this.backdropState = this.menuState === 'in' ? 'visible' : 'hidden';
     }
+  }
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 
   closeMenu() {

@@ -24,6 +24,7 @@ export const routes: Routes = [
     {path: 'species', component: SpeceisComponent},
     {path: 'login', component: LoginComponent},
     {path: 'logout', component: LogoutComponent},
+    {path: 'admin/logout', component: LogoutComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'top-three-user', component: TopThreeComponent},
     {path: 'results', component: ResultComponent},

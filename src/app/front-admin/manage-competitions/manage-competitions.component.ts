@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CreateCompetitionsComponent } from '../CRUD/competitions/create-competitions/create-competitions.component';
 import { DeleteCompetitionsComponent } from '../CRUD/competitions/delete-competitions/delete-competitions.component';
 import { UpdateCompetitionsComponent } from '../CRUD/competitions/update-competitions/update-competitions.component';
+import { CompitetionServiceService } from '../../service/compitetion-service.service';
 
 interface CompetitionResponseVm {
   id: string;
@@ -25,38 +26,41 @@ interface CompetitionResponseVm {
 
 export class ManageCompetitionsComponent {
 
-  competitions: CompetitionResponseVm[] = [
-    {
-      id: '123e4567-e89b-12d3-a456-426614174000',
-      code: 'COMP-001',
-      location: 'New York City',
-      date: '2024-03-12T08:00:00',
-      speciesType: 'BRID',
-      minParticipants: 10,
-      maxParticipants: 50,
-      openRegistration: true,
-    },
-    {
-      id: '123e4567-e89b-12d3-a456-426614174001',
-      code: 'COMP-002',
-      location: 'Los Angeles',
-      date: '2024-03-14T09:00:00',
-      speciesType: 'BIG_GAME',
-      minParticipants: 5,
-      maxParticipants: 20,
-      openRegistration: false,
-    },
-    {
-      id: '123e4567-e89b-12d3-a451-456614174001',
-      code: 'COMP-003',
-      location: 'Morrocco',
-      date: '2024-03-14T09:00:00',
-      speciesType: 'SEA',
-      minParticipants: 10,
-      maxParticipants: 20,
-      openRegistration: true,
-    },
-  ];
+
+  constructor(private compitetionServiceService: CompitetionServiceService) { }
+
+  
+  competitions: any = [];
+  totalElements = 0;
+  page = 0;
+  size = 10;
+
+  getCompetitions(): void {
+    this.compitetionServiceService.getCompitetionList(this.page, this.size)
+    .subscribe(
+      (response) => {
+        this.competitions = response.content;
+        this.totalElements = response.totalElements;
+      },
+      (error) => {
+        console.error('Error fetching competition list:', error);
+      }
+    );
+
+    console.log(this.competitions);
+  }
+
+  ngOnInit(): void {
+    this.getCompetitions();
+  }
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.getCompetitions();
+  }
+  get totalPages(): number {
+    return Math.ceil(this.totalElements / this.size);
+  }
+  
 
  
 }

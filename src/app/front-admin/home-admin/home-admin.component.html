@@ -75,14 +75,42 @@
             <mat-icon>notifications</mat-icon>
             <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-red-500"></span>
           </button>
-          <div class="flex items-center gap-2">
-            <img
-              src="/assets/ME.png"
-              alt="Avatar"
-              class="w-8 h-8 rounded-full"
-            />
-            <span class="hidden md:block font-medium">JM</span>
+          <div class="relative inline-block text-left">
+            <!-- Profile Button -->
+            <button
+              class="flex items-center gap-2 focus:outline-none"
+              (click)="toggleDropdown()"
+            >
+              <img
+                src="/assets/ME.png"
+                alt="Avatar"
+                class="w-8 h-8 rounded-full"
+              />
+              <span class="hidden md:block font-medium">JM</span>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+          
+            <!-- Dropdown Menu -->
+            <div
+              *ngIf="dropdownOpen"
+              class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-50"
+            >
+            <button
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <mat-icon class="mr-2">person</mat-icon>
+              Profile
+            </button>
+            <button
+              routerLink="logout"
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <mat-icon class="mr-2">logout</mat-icon>
+              Logout
+            </button>
+            </div>
           </div>
+          
         </div>
       </header>
   

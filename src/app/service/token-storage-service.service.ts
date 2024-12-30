@@ -30,10 +30,8 @@ export class TokenStorageServiceService {
     if (token) {
       try {
         const decodedToken = this.jwtHelper.decodeToken(token); 
-        console.log('Decoded Token:', decodedToken);
         return decodedToken?.role || null;
       } catch (error) {
-        console.error('Failed to decode token:', error);
         return null;
       }
     }
