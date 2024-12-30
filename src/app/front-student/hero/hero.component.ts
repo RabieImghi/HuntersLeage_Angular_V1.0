@@ -7,6 +7,7 @@ import { CountdownTimerComponent } from '../footer/countdown-timer/countdown-tim
 import { TestimonialsComponent } from '../testimonials/testimonials.component';
 import { FooterComponent } from '../footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { TokenStorageServiceService } from '../../service/token-storage-service.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './hero.component.html'
 })
 export class HeroComponent {
+  constructor(private tokenService: TokenStorageServiceService) { }
 
 
   backgroundImage: string = 'assets/body2.jpg';
@@ -30,5 +32,9 @@ export class HeroComponent {
     });
   }
 
+
+  getToken(): string | null{
+    return this.tokenService.getToken();
+  }
 
 }

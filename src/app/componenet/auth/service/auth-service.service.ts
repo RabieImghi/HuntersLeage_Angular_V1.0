@@ -3,6 +3,7 @@ import { environment} from "../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { TokenStorageServiceService} from "../../../service/token-storage-service.service";
 import { AuthRequest} from "../interfaces/auth-request";
+import { RegisterRequest} from "../interfaces/register-request";
 import {Observable, tap} from "rxjs";
 
 @Injectable({
@@ -19,6 +20,15 @@ export class AuthServiceService {
         if (response.jwt) {
           this.tokenService.saveToken(response.jwt)
         }
+      })
+    );
+  }
+
+  register(RegisterRequest: RegisterRequest): Observable<any>{
+    console.log(RegisterRequest);
+    return this.http.post(this.apiUrl + 'auth/register', RegisterRequest).pipe(
+      tap((response) => {
+        console.log(response);
       })
     );
   }

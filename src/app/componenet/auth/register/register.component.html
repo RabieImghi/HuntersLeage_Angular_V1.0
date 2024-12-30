@@ -15,7 +15,8 @@
         </div>
       </div>
   
-      <form class="md:col-span-2 w-full py-6 px-6 sm:px-16">
+      <form class="md:col-span-2 w-full py-6 px-6 sm:px-16"
+      [formGroup]="RegisterForm" (ngSubmit)="onSubmit()">
         <div class="mb-6">
           <h3 class="text-[#6A42C2] text-2xl font-bold">Create an account</h3>
         </div>
@@ -24,22 +25,26 @@
         
   
           <div>
-            <label class="text-[#6A42C2] text-sm mb-2 block">Username</label>
+            <label  [ngClass]="{ 'text-red-500': isErrorInUsername }" class="text-[#6A42C2] text-sm mb-2 block">Username</label>
             <div class="relative flex items-center">
               <input
                 formControlName="username"
                 type="text"
+                [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInUsername }"
+                (ngModelChange)="isErrorInUsername = false"
                 class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
                 placeholder="Enter username"
               />
             </div>
           </div>
           <div>
-            <label class="text-[#6A42C2] text-sm mb-2 block">Email</label>
+            <label  [ngClass]="{ 'text-red-500': isErrorInEmail }" class="text-[#6A42C2] text-sm mb-2 block">Email</label>
             <div class="relative flex items-center">
               <input
                 formControlName="email"
                 type="email"
+                [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInEmail }"
+                (ngModelChange)="isErrorInEmail = false"
                 class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
                 placeholder="Enter email"
               />
@@ -47,10 +52,12 @@
           </div>
   
           <div>
-            <label class="text-[#6A42C2] text-sm mb-2 block">Password</label>
+            <label [ngClass]="{ 'text-red-500': isErrorInPassword }" class="text-[#6A42C2] text-sm mb-2 block">Password</label>
             <div class="relative flex items-center">
               <input
                 formControlName="password"
+                [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInPassword }"
+                (ngModelChange)="isErrorInPassword = false"
                 type="password"
                 class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
                 placeholder="Enter password"
@@ -77,8 +84,7 @@
             </label>
           </div>
         </div>
-  
-        <!-- Submit Button -->
+
         <div class="!mt-12">
           <button
             type="submit"

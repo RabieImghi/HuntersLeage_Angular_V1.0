@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule,],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -73,7 +73,6 @@ export class LoginComponent {
     for (const name in controls) {
       if (controls[name].invalid) {
         const controlErrors = controls[name].errors;
-        console.log(`Errors in ${name}:`, controlErrors);
         if (controlErrors?.['required'])  {
           if(name === 'username'){
             this.errorUsername = true;
