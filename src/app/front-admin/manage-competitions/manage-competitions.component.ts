@@ -4,6 +4,7 @@ import { CreateCompetitionsComponent } from '../CRUD/competitions/create-competi
 import { DeleteCompetitionsComponent } from '../CRUD/competitions/delete-competitions/delete-competitions.component';
 import { UpdateCompetitionsComponent } from '../CRUD/competitions/update-competitions/update-competitions.component';
 import { CompitetionServiceService } from '../../service/compitetion-service.service';
+import { ComputationService } from '../../service/shared/computation.service';
 
 interface CompetitionResponseVm {
   id: string;
@@ -27,7 +28,7 @@ interface CompetitionResponseVm {
 export class ManageCompetitionsComponent {
 
 
-  constructor(private compitetionServiceService: CompitetionServiceService) { }
+  constructor(private compitetionServiceService: CompitetionServiceService,private computationService: ComputationService) { }
 
   
   competitions: any = [];
@@ -52,6 +53,10 @@ export class ManageCompetitionsComponent {
 
   ngOnInit(): void {
     this.getCompetitions();
+    this.computationService.refreshComput$.subscribe(() => {
+      this.getCompetitions();
+    });
+   
   }
   onPageChange(newPage: number): void {
     this.page = newPage;

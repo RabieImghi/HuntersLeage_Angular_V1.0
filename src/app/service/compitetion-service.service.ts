@@ -14,4 +14,8 @@ export class CompitetionServiceService {
     const url = `${environment.apiUrl}competition/details?page=${page}&size=${size}`;
     return this.http.get<any>(url);
   }
+  deleteCompetition(id: string): Observable<any> {
+    const url = `${environment.apiUrl}competition/delete/${id}`;
+    return this.http.delete<any>(url);
+  }
 }

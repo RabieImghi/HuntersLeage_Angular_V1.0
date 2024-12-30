@@ -28,7 +28,8 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'top-three-user', component: TopThreeComponent},
     {path: 'results', component: ResultComponent},
-    {path: 'admin', component: HomeAdminComponent,canActivate: [isJuryGuardGuard], children: [
+    {path: 'admin', component: HomeAdminComponent, canActivate: [isJuryGuardGuard], children: [
+        {path: '',component: AnalysticsComponent},
         {path: 'competitions', component: ManageCompetitionsComponent},
         {path: 'hunts', component: ManageHuntsComponent},
         {path: 'species', component: ManageSpeciesComponent, canActivate: [isAdminGuardGuard]},
