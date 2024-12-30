@@ -33,11 +33,11 @@
           
           
 
-          <form class="max-w-md mx-auto">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="max-w-md mx-auto">
             <div class="relative z-0 w-full mb-5 group">
               <input
                 type="text"
-                name="code"
+                formControlName="code"
                 id="code"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -54,7 +54,7 @@
             <div class="relative z-0 w-full mb-5 group">
               <input
                 type="text"
-                name="location"
+                formControlName="location"
                 id="location"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -71,7 +71,7 @@
             <div class="relative z-0 w-full mb-5 group">
               <input
                 type="datetime-local"
-                name="date"
+                formControlName="date"
                 id="date"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -87,7 +87,7 @@
           
             <div class="relative z-0 w-full mb-5 group">
               <select
-                name="speciesType"
+              formControlName="speciesType"
                 id="speciesType"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 required
@@ -110,7 +110,7 @@
               <div class="relative z-0 w-full mb-5 group">
                 <input
                   type="number"
-                  name="minParticipants"
+                  formControlName="minParticipants"
                   id="minParticipants"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
@@ -126,7 +126,7 @@
               <div class="relative z-0 w-full mb-5 group">
                 <input
                   type="number"
-                  name="maxParticipants"
+                  formControlName="maxParticipants"
                   id="maxParticipants"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
@@ -143,7 +143,7 @@
           
             <div class="relative z-0 w-full mb-5 group">
               <select
-                name="openRegistration"
+              formControlName="openRegistration"
                 id="openRegistration"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 required

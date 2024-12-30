@@ -43,15 +43,14 @@
           
           
 
-          <form class="max-w-md mx-auto">
+          <form class="max-w-md mx-auto" [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="relative z-0 w-full mb-5 group">
               <input
                 type="text"
-                name="code"
+                formControlName="code"
                 id="code"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder="Code (e.g. COMP001)"
-                [value]="competition.code"
                 required
               />
               <label
@@ -65,11 +64,10 @@
             <div class="relative z-0 w-full mb-5 group">
               <input
                 type="text"
-                name="location"
+                formControlName="location"
                 id="location"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder="Location (e.g. Dubai)"
-                [value]="competition.location"
                 required
               />
               <label
@@ -83,10 +81,9 @@
             <div class="relative z-0 w-full mb-5 group">
               <input
                 type="datetime-local"
-                name="date"
+                formControlName="date"
                 id="date"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                [value]="competition.date"
                 required
               />
               <label
@@ -99,7 +96,7 @@
           
             <div class="relative z-0 w-full mb-5 group">
               <select
-                name="speciesType"
+              formControlName="speciesType"
                 id="speciesType"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 required
@@ -107,7 +104,6 @@
                 <option value="" disabled selected>Choose Species Type</option>
                 <option
                     *ngFor="let type of competitionTypes"
-                    [value]="type.value"
                     [selected]="competition.speciesType === type.value"
                 >
                     {{ type.label }}
@@ -126,11 +122,10 @@
               <div class="relative z-0 w-full mb-5 group">
                 <input
                   type="number"
-                  name="minParticipants"
+                  formControlName="minParticipants"
                   id="minParticipants"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder="Min Participants (e.g. 5)"
-                  [value]="competition.minParticipants"
                   required
                 />
                 <label
@@ -143,11 +138,10 @@
               <div class="relative z-0 w-full mb-5 group">
                 <input
                   type="number"
-                  name="maxParticipants"
+                  formControlName="maxParticipants"
                   id="maxParticipants"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder="Max Participants (e.g. 10)"
-                  [value]="competition.maxParticipants"
                   required
                 />
                 <label
@@ -161,7 +155,7 @@
           
             <div class="relative z-0 w-full mb-5 group">
               <select
-                name="openRegistration"
+              formControlName="openRegistration"
                 id="openRegistration"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 required
@@ -187,6 +181,8 @@
               Close
             </button>
               <button
+                type="submit"
+                (click)="onSubmit()"
                 class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#6A42C2] group px-6 py-1"
               >
                 <span class="relative z-10 text-[#6A42C2] group-hover:text-white duration-500">Submit</span>
