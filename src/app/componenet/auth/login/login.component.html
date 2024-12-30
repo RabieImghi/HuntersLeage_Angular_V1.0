@@ -11,15 +11,20 @@
         </div>
 
         <div>
-          <label class="text-[#6A42C2] text-xs block mb-2">Username</label>
+          <label 
+          [ngClass]="{ 'text-red-500': errorUsername }"
+          class="text-[#6A42C2] text-xs block mb-2">Username</label>
           <div class="relative flex items-center">
             <input
-             formControlName="username"
-              type="text"
-              required
-              class="w-full text-[#6A42C2] text-sm border-b border-[#6A42C2] focus:border-[#6A42C2] px-2 py-3 outline-none"
-              placeholder="Enter Username"
-            />
+            formControlName="username"
+            type="text"
+            required
+            (ngModelChange)="errorUsername = false"
+            [ngClass]="{ 'border-red-500 focus:border-red-500': errorUsername }"
+            class="w-full text-[#6A42C2] text-sm border-b border-[#6A42C2] focus:border-[#6A42C2] px-2 py-3 outline-none"
+            placeholder="Enter Username"
+          />
+          
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="#bbb"
@@ -27,18 +32,21 @@
               class="w-[18px] h-[18px] absolute right-2"
               viewBox="0 0 682.667 682.667"
             >
-              <!-- SVG paths here -->
             </svg>
           </div>
         </div>
 
         <div class="mt-8">
-          <label class="text-[#6A42C2] text-xs block mb-2">Password</label>
+          <label
+          [ngClass]="{ 'text-red-500': errorPassword }"
+          class="text-[#6A42C2] text-xs block mb-2">Password</label>
           <div class="relative flex items-center">
             <input
              formControlName="password"
               type="password"
               required
+              (ngModelChange)="errorPassword = false"
+              [ngClass]="{ 'border-red-500 focus:border-red-500': errorPassword }"
               class="w-full text-[#6A42C2] text-sm border-b border-[#6A42C2] focus:border-[#6A42C2] px-2 py-3 outline-none"
               placeholder="Enter password"
             />
