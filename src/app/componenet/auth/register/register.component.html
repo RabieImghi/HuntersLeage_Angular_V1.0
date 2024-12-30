@@ -56,8 +56,10 @@
             <div class="relative flex items-center">
               <input
                 formControlName="password"
+                [(ngModel)]="password"
                 [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInPassword }"
-                (ngModelChange)="isErrorInPassword = false"
+                (ngModelChange)="isErrorInPassword = false; "
+                
                 type="password"
                 class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
                 placeholder="Enter password"

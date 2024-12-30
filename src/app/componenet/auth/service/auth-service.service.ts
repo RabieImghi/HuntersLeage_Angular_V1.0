@@ -25,12 +25,7 @@ export class AuthServiceService {
   }
 
   register(RegisterRequest: RegisterRequest): Observable<any>{
-    console.log(RegisterRequest);
-    return this.http.post(this.apiUrl + 'auth/register', RegisterRequest).pipe(
-      tap((response) => {
-        console.log(response);
-      })
-    );
+    return this.http.post(this.apiUrl + 'auth/register', RegisterRequest);
   }
 
   

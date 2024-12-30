@@ -24,6 +24,7 @@ export class RegisterComponent {
   isErrorInUsername: boolean = false;
   isErrorInPassword: boolean = false;
   isErrorInEmail: boolean = false;
+  isPaswordFormatError: boolean = false;
 
   constructor(private authService: AuthServiceService, private fb: FormBuilder, private router: Router) { 
     this.RegisterForm = this.fb.group({
@@ -63,7 +64,13 @@ export class RegisterComponent {
           );
         },
         error =>{
-          this.errorMessage = error.error;
+          if (Array.isArray(error.error.password)){
+            this.errorMessage = `Password must meet the following format: abc@ABC123`;
+          } 
+            
+          else
+            this.errorMessage = error.error;
+          console.log(this.errorMessage);
           this.errorAlert();
         }
       );
@@ -72,6 +79,8 @@ export class RegisterComponent {
     }
     
   }
+
+ 
 
   displayValidationErrors() {
     const controls = this.RegisterForm.controls;
@@ -131,7 +140,7 @@ export class RegisterComponent {
         icon: 'error',
         title: this.errorMessage,
         showConfirmButton: false, 
-        timer: 3500, 
+        timer: 5500, 
         toast: true, 
         timerProgressBar: true,
       });
