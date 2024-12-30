@@ -1,5 +1,4 @@
 export interface CreateCompetition {
-    id: string,
     code: string,
     location: string,
     date: string,

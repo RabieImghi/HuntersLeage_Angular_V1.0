@@ -26,7 +26,7 @@ export class CompitetionServiceService {
     return this.http.delete<any>(url);
   }
   updateCompetition(competition: UpdateCompetition): Observable<any> {
-    const url = `${environment.apiUrl}competition/create`;
-    return this.http.post<any>(url, competition);
+    const url = `${environment.apiUrl}competition/update`;
+    return this.http.put<any>(url, competition);
   }
 }

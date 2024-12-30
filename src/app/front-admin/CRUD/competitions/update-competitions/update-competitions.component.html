@@ -104,6 +104,7 @@
                 <option value="" disabled selected>Choose Species Type</option>
                 <option
                     *ngFor="let type of competitionTypes"
+                    [value]="type.value"
                     [selected]="competition.speciesType === type.value"
                 >
                     {{ type.label }}

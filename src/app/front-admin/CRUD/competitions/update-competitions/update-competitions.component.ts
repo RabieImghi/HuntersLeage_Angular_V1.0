@@ -107,7 +107,7 @@ export class UpdateCompetitionsComponent {
       icon: 'success',
       title: 'Competition updated successfully',
       showConfirmButton: false,
-      timer: 1500
+      timer: 3500
     });
   }
   errorAlert(error: string) {
@@ -116,7 +116,7 @@ export class UpdateCompetitionsComponent {
       icon: 'error',
       title: 'Error creating competition : ' + error,
       showConfirmButton: false,
-      timer: 1500
+      timer: 3500
     })
   }
 }
