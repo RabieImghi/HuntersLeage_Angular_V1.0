@@ -17,7 +17,7 @@ export class ManageHuntsComponent {
   Hunts: any = [];
   totalElements = 0;
   page = 0;
-  size = 10;
+  size = 5;
   constructor(private huntService: HuntService,private computationService: ComputationService) { }
 
   ngOnInit(): void {
@@ -33,11 +33,20 @@ export class ManageHuntsComponent {
     .subscribe(
       (response)=>{
         this.Hunts = response.content;
+        this.totalElements = response.totalElements;
       },
       (error)=>{
         console.error('Error fetching hunts list:', error);
       }
     );
+  }
+
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.getHunts();
+  }
+  get totalPages(): number {
+    return Math.ceil(this.totalElements / this.size);
   }
   
 
