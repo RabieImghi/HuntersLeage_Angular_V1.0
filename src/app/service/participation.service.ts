@@ -11,6 +11,10 @@ export class ParticipationService {
 
   constructor(private http: HttpClient) { }
 
+  getParticipationList(page: number, size: number): Observable<any> {
+    const url = `${environment.apiUrl}participation/list?page=${page}&size=${size}`;
+    return this.http.get<any>(url);
+  }
   createParticipation(participation: any): Observable<any> {
     const url = `${environment.apiUrl}participation/create`;
     return this.http.post<any>(url, participation);

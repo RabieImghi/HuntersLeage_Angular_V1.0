@@ -1,105 +1,96 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SpeciesServiceService } from '../../../../service/species-service.service';
+import { HuntService } from '../../../../service/hunt.service';
+import { ParticipationService } from '../../../../service/participation.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { ComputationService } from '../../../../service/shared/computation.service';
 
-interface Species {
-  id: String;
-  name: string;
-  category: string;
-  minimumWeight: number;
-  difficulty: string;
-  points: number;
-}
 
-interface User {
-  username: string;
-}
-interface competition {
-  code: string;
-}
-
-interface Participant {
-  id: string;
-  score: number;
-  user: User;
-  competition: competition;
-}
 
 @Component({
   selector: 'app-create-hunt',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create-hunt.component.html',
    
 })
 export class CreateHuntComponent {
   isModalOpen = false;
+  participantList: any = [];
+  speciesList: any = [];
+  isModalOpenUpdate = false;
+  createHuntForm: FormGroup;
 
+
+  constructor(private fb: FormBuilder ,private speciesServiceService: SpeciesServiceService, private huntService: HuntService, private participationService: ParticipationService, private computationService: ComputationService) 
+  {
+    this.createHuntForm = this.fb.group({
+      speciesId: ['',[Validators.required]],
+      participationId: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+    });
+  }
+
+  ngOnInit(): void {
+    this.getSpecies();
+    this.getParticipants();
+  }
+
+  onSubmit(): void {
+    if (this.createHuntForm.valid) {
+      this.huntService.createHunt(this.createHuntForm.value)
+        .subscribe(
+          (response) => {
+            this.computationService.triggerRefresh();
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  text: 'The hunt has been created with success.',
+                  showConfirmButton: false,
+                  timer: 1500 
+              });
+              this.toggleModal(false);
+              this.createHuntForm.reset();
+          },
+          (error) => {
+              Swal.fire({
+                  position: 'top-end', 
+                  icon: 'error',
+                  text: 'Error on creating hunt: ' + error.error,
+                  showConfirmButton: false,
+                  timer: 1500 
+              });
+          }
+        );
+    }
+  }
+
+  getParticipants(): void {
+    this.participationService.getParticipationList(0, 20)
+      .subscribe(
+        (response) => {
+          this.participantList = response.content;
+          console.log('Participants:', this.participantList);
+        },
+        (error) => {
+          console.error('Error fetching participants:', error);
+        }
+      );
+  }
+  getSpecies(): void {
+    this.speciesServiceService.getSpeciesList(0, 50)
+      .subscribe(
+        (response) => {
+          this.speciesList = response.content;
+        },
+        (error) => {
+          console.error('Error fetching species list:', error);
+        }
+      );
+  }
   toggleModal(state: boolean): void {
     this.isModalOpen = state;
   }
-  participantList: Participant[] = [
-    {
-      id: '123e4567-e89b-12d3-a456-426614174000',
-      score: 100,
-      user: {
-        username: 'John',
-      },
-      competition: {
-        code: 'C00-01',
-      },
-    },
-    {
-      id: '123e4567-e89b-12d3-a456-426614174001',
-      score: 50,
-      user: {
-        username: 'Jane',
-      },
-      competition: {
-        code: 'C00-02',
-      },
-    }
-  ]
-
-  speciesList: Species[] = [
-    {
-      id: '123e4567-e89b-12d3-a456-426614174000',
-      name: 'Tiger',
-      category: 'BIG_GAME',
-      minimumWeight: 100,
-      difficulty: 'Hard',
-      points: 50,
-    },
-    {
-      id: '123e4567-e89b-12d3-a456-426614174001',
-      name: 'Eagle',
-      category: 'BIRD',
-      minimumWeight: 5,
-      difficulty: 'Medium',
-      points: 30,
-    },
-    {
-      id: '123e4567-e89b-12d3-a456-426614174002',
-      name: 'Shark',
-      category: 'SEA',
-      minimumWeight: 500,
-      difficulty: 'Hard',
-      points: 60,
-    },
-    {
-      id: '123e4567-e89b-12d3-a456-426614174003',
-      name: 'Dolphin',
-      category: 'SEA',
-      minimumWeight: 200,
-      difficulty: 'Medium',
-      points: 40,
-    },
-    {
-      id: '123e4567-e89b-12d3-a456-426614174004',
-      name: 'Butterfly',
-      category: 'BIRD',
-      minimumWeight: 1,
-      difficulty: 'Easy',
-      points: 20,
-    },
-  ];
 }
