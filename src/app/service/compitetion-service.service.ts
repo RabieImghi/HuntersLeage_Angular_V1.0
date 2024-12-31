@@ -33,4 +33,5 @@ export class CompitetionServiceService {
     const url = `${environment.apiUrl}competition/nextCompetition`;
     return this.http.get<any>(url);
   }
+ 
 }

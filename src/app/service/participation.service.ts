@@ -15,4 +15,12 @@ export class ParticipationService {
     const url = `${environment.apiUrl}participation/create`;
     return this.http.post<any>(url, participation);
   }
+  getTop3Users(): Observable<any> {
+    const url = `${environment.apiUrl}participation/getTop3`;
+    return this.http.get<any>(url);
+  }
+  getMyResults(): Observable<any> {
+    const url = `${environment.apiUrl}participation/getMyHistoric`;
+    return this.http.get<any>(url);
+  }
 }
