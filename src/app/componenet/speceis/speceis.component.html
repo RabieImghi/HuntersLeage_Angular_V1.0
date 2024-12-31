@@ -1,7 +1,38 @@
 <div class="container mt-[100px] mx-auto">
   <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-800">Explore Our Competitions</h1>
+      <p class="text-gray-600 mt-2">
+        Discover our wide range of exciting competitions and get ready to participate!
+      </p>
+    </div>
+    <div class="flex flex-wrap justify-between items-center mb-6">
+      <div class="w-full md:w-1/2 mb-4 md:mb-0">
+        <input
+          type="text"
+          
+          placeholder="Search competitions..."
+          class="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
+        />
+      </div>
+      <div class="w-full md:w-auto">
+        <label for="itemsPerPage" class="block text-sm font-medium text-gray-700 mb-1">
+          Show
+        </label>
+        <select
+          id="itemsPerPage"
+          [(ngModel)]="size"
+          (change)="getSpecies()"
+          class="py-2 px-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
+        >
+          <option [value]="5">5</option>
+          <option [value]="10">10</option>
+          <option [value]="20">50</option>
+          <option [value]="50">100</option>
+        </select>
+      </div>
+    </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <!-- Card for each species -->
       <div
         *ngFor="let species of speciesList"
         class="bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-all group relative transform transition-transform duration-300 hover:translate-y-[-20px] hover:scale-105 group"
@@ -19,7 +50,7 @@
         </div>
   
         <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
+          <h3 class="text-xl text-sm text-[#6A42C2] mb-2">
             {{ species.name }}
           </h3>
   
@@ -44,6 +75,29 @@
             {{ species.points }} Points
           </div>
         </div>
+      </div>
+    </div>
+    <div class="flex justify-end pb-4 mt-4">
+      <div class="pagination-controls flex items-center space-x-4">
+          <button
+            class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            [disabled]="page === 0"
+            (click)="onPageChange(page - 1)"
+          >
+            Previous
+          </button>
+        
+          <span class="text-sm text-slate-600">
+            Page {{ page + 1 }} of {{ totalPages }}
+          </span>
+        
+          <button
+            class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            [disabled]="page + 1 >= totalElements / size"
+            (click)="onPageChange(page + 1)"
+          >
+            Next
+          </button>
       </div>
     </div>
   </div>

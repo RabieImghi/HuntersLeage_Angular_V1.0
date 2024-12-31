@@ -1,78 +1,96 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import AOS from 'aos';
+import Swal from 'sweetalert2';
+import { CompitetionServiceService } from '../../service/compitetion-service.service';
+import { ParticipationService } from '../../service/participation.service';
 
-interface Competition {
-  code: string;
-  location: string;
-  date: string; 
-  speciesType: string;
-  minParticipants: number;
-  maxParticipants: number;
-  openRegistration: boolean;
+interface createCompetition {
+  competitionId: string;
 }
-
 @Component({
   selector: 'app-compitions',
   standalone: true,
-  imports: [CommonModule ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './compitions.component.html'
 })
 export class CompitionsComponent {
+  competitions: any = [];
+  totalElements = 0;
+  page: number = 0;
+  size: number = 10;
 
+  constructor(private compitetionServiceService: CompitetionServiceService, private partcipationService: ParticipationService) { }
 
   ngOnInit() {
-      AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-      });
+    this.getCompetitions();
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+    });
+  }
+
+  getCompetitions(): void {
+    this.compitetionServiceService.getCompitetionList(this.page, this.size)
+    .subscribe(
+      (response)=>{
+        this.competitions = response.content;
+        this.totalElements = response.totalElements;
+      },
+      (error)=>{
+        console.error('Error fetching competition list:', error);
+      }
+    );
+  }
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    this.getCompetitions();
+    
+  }
+  get totalPages(): number {
+    return Math.ceil(this.totalElements / this.size);
+  }
+  onParticipate(competition: any): void {
+    const participation: createCompetition = {
+      competitionId: competition.id
     }
-  competitions: Competition[] = [
-    {
-      code: 'CMP-001',
-      location: 'New Hyde, 11040',
-      date: '2024-02-05T08:00:00',
-      speciesType: 'Mammals',
-      minParticipants: 10,
-      maxParticipants: 50,
-      openRegistration: true,
-    },
-    {
-      code: 'CMP-002',
-      location: 'Central Park, NYC',
-      date: '2024-03-10T10:00:00',
-      speciesType: 'Birds',
-      minParticipants: 5,
-      maxParticipants: 30,
-      openRegistration: false,
-    },
-    {
-      code: 'CMP-003',
-      location: 'Golden Gate, SF',
-      date: '2024-04-15T09:00:00',
-      speciesType: 'Reptiles',
-      minParticipants: 8,
-      maxParticipants: 40,
-      openRegistration: true,
-    },
-    {
-      code: 'CMP-004',
-      location: 'Blue Ridge, NC',
-      date: '2024-05-20T07:00:00',
-      speciesType: 'Amphibians',
-      minParticipants: 15,
-      maxParticipants: 60,
-      openRegistration: true,
-    },
-    {
-      code: 'CMP-005',
-      location: 'Yellowstone, WY',
-      date: '2024-06-25T06:00:00',
-      speciesType: 'Insects',
-      minParticipants: 20,
-      maxParticipants: 80,
-      openRegistration: false,
-    },
-  ];
+    this.partcipationService.createParticipation(participation)
+    .subscribe(
+      (response)=>{
+        this.successParticipation();
+      },
+      (error)=>{
+        this.errorParticipation(error.error);
+      }
+    )
+  }
+  successParticipation() {
+     Swal.fire({
+        position: 'top-end', 
+        icon: 'success',
+        title: 'You have successfully participated in the competition!',
+        showConfirmButton: false, 
+        timer: 3500, 
+        toast: true, 
+        timerProgressBar: true,
+      });
+  }
+  errorParticipation(error: string) {
+    Swal.fire({
+      position: 'top-end', 
+      icon: 'error',
+      title: 'Error participating in the competition : ' + error,
+      showConfirmButton: false, 
+      timer: 3500, 
+      toast: true, 
+      timerProgressBar: true,
+    });
+  }
+
 }
