@@ -24,14 +24,16 @@
         (click)="$event.stopPropagation()"
       >
         <h2 class="text-2xl font-semibold text-center mb-6">Create New Species</h2>
-        <form  class="max-w-md mx-auto">
+        <form  
+        [formGroup]="creteSpeciesForm" (ngSubmit)="createSpecies()"
+        class="max-w-md mx-auto">
   
           <!-- Name Field -->
           <div class="relative z-0 w-full mb-5 group">
             <input
               type="text"
               id="name"
-              name="name"
+              formControlName="name"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
@@ -48,7 +50,7 @@
           <div class="relative z-0 w-full mb-5 group">
             <select
               id="category"
-              name="category"
+              formControlName="category"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               required
             >
@@ -68,7 +70,7 @@
             <input
               type="number"
               id="minimumWeight"
-              name="minimumWeight"
+              formControlName="minimumWeight"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
@@ -90,7 +92,7 @@
               >
                 <input
                   class="sr-only peer"
-                  name="difficulty"
+                  formControlName="difficulty"
                   type="radio"
                   [value]="difficulty.value"
                   required
@@ -119,7 +121,7 @@
             <input
               type="number"
               id="points"
-              name="points"
+              formControlName="points"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
