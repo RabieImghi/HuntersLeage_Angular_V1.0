@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 export class DetailUserComponent {
 
  @Input() user: any;
+
  isModalOpen = false;
 
  toggleModal(state: boolean): void {

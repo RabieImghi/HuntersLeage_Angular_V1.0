@@ -16,7 +16,7 @@
         <div class="bg-white p-6 rounded-lg w-full max-w-lg shadow-xl relative cursor-default"
             (click)="$event.stopPropagation()">
             <h2 class="text-2xl font-semibold text-center mb-4 text-[#6A42C2]">Update User</h2>
-            <form>
+            <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
                 <!-- Username -->
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" formControlName="username"

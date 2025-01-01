@@ -4,20 +4,10 @@ import { DetailUserComponent } from '../CRUD/user/detail-user/detail-user.compon
 import { UpdateUserComponent } from '../CRUD/user/update-user/update-user.component';
 import { DeleteUserComponent } from '../CRUD/user/delete-user/delete-user.component';
 import { CreateUserComponent } from '../CRUD/user/create-user/create-user.component';
-
-
-interface UserResponse {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-  firstName: string;
-  lastName: string;
-  cin: string;
-  nationality: string;
-  licenseExpirationDate: string;
-  joinDate: string;
-}
+import { UserResponse } from '../interface/user-response';
+import { UserService } from '../../service/user.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ComputationService } from '../../service/shared/computation.service';
 
 @Component({
   selector: 'app-manage-users',
@@ -26,54 +16,48 @@ interface UserResponse {
   templateUrl: './manage-users.component.html'
 })
 export class ManageUsersComponent {
-  users: UserResponse[] = [
-    {
-      id: '1',
-      username: 'george.johnson',
-      email: 'george.johnson@example.com',
-      role: 'ADMIN',
-      firstName: 'George',
-      lastName: 'Johnson',
-      cin: '123456789',
-      nationality: 'American',
-      licenseExpirationDate: '2025-06-30',
-      joinDate: '2020-01-15',
-    },
-    {
-      id: '2',
-      username: 'jane.doe',
-      email: 'jane.doe@example.com',
-      role: 'JURY',
-      firstName: 'Jane',
-      lastName: 'Doe',
-      cin: '987654321',
-      nationality: 'British',
-      licenseExpirationDate: '2024-11-20',
-      joinDate: '2019-04-01',
-    },
-    {
-      id: '3',
-      username: 'john.smith',
-      email: 'john.smith@example.com',
-      role: 'MEMBER',
-      firstName: 'John',
-      lastName: 'Smith',
-      cin: '456123789',
-      nationality: 'Canadian',
-      licenseExpirationDate: '2023-09-15',
-      joinDate: '2018-07-10',
-    },
-    {
-      id: '4',
-      username: 'emily.white',
-      email: 'emily.white@example.com',
-      role: 'MEMBER',
-      firstName: 'Emily',
-      lastName: 'White',
-      cin: '789321654',
-      nationality: 'Australian',
-      licenseExpirationDate: '2026-03-05',
-      joinDate: '2021-10-22',
-    },
-  ];
+
+  page: number = 0;
+  size: number = 12;
+  totalElements: number = 0;
+  users: UserResponse[] =[];
+  searchUserForm = this.fb.group({
+    id: [''],
+    username: [''],
+    email: [''],
+    cin: [''],
+  });
+
+  
+  
+  constructor(private userService: UserService, private fb: FormBuilder, private com: ComputationService) {}
+
+
+  ngOnInit(): void {
+    this.getUsers();
+    this.com.refreshComput$.subscribe(()=>{
+      this.getUsers()
+    })
+  }
+
+  getUsers(): void {
+    this.userService.getUsers(this.searchUserForm.value, this.page, this.size).subscribe(
+      response => {
+        this.users = response.content;
+        this.totalElements = response.totalElements;
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.getUsers();
+  }
+  get totalPages(): number {
+    return Math.ceil(this.totalElements / this.size);
+  }
 }
