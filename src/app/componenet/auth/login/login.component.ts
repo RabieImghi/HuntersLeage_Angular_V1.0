@@ -16,7 +16,7 @@ export class LoginComponent {
   errorMessage: String = '';
   errorUsername: boolean = false;
   errorPassword: boolean = false;
-  
+  isSubmitForm: boolean = false;
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthServiceService, private router: Router) {
@@ -33,6 +33,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
+    this.isSubmitForm = true;
     if(this.loginForm.valid){
       const authRequest = new  AuthRequest(this.loginForm.value.username, this.loginForm.value.password);
       this.authService.login(authRequest).subscribe(
@@ -40,6 +41,7 @@ export class LoginComponent {
           this.router.navigateByUrl('')
         },
         error => {
+          this.isSubmitForm = false;
           this.errorMessage = error.error;
           if(this.errorMessage.includes('username'))
             this.errorUsername = true;
@@ -50,6 +52,7 @@ export class LoginComponent {
         }
       )
     }else{
+      this.isSubmitForm = false;
       this.displayValidationErrors();
     }
   }

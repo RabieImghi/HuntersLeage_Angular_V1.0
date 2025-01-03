@@ -24,6 +24,7 @@ export class SpeceisComponent {
   page: number = 0;
   size: number = 10;
   totalElements = 0;
+  isDataLoading = false;
 
   constructor(private speciesServiceService: SpeciesServiceService) { }
 
@@ -43,6 +44,7 @@ export class SpeceisComponent {
       (response)=>{
         this.speciesList = response.content;
         this.totalElements = response.totalElements;
+        this.isDataLoading = true;
       },
       (error)=>{
         console.error('Error fetching species list:', error);

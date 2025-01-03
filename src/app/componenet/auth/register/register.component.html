@@ -87,12 +87,20 @@
           </div>
         </div>
 
-        <div class="!mt-12">
-          <button
+        <div class="mt-12">
+          <button 
+            [disabled]="isSubmitForm"
             type="submit"
-            class="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-[#6A42C2] hover:bg-[#5b36a3] focus:outline-none"
+            class="w-full h-12 shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-[#6A42C2] hover:bg-[#5b36a3] focus:outline-none"
           >
-            Create an account
+            <span *ngIf="!isSubmitForm">Create an account</span>
+            <div *ngIf="isSubmitForm" class="flex-col gap-4 w-full flex items-center justify-center">
+              <div class="flex flex-row gap-2">
+                <div class="w-4 h-4 rounded-full bg-white animate-bounce"></div>
+                <div class="w-4 h-4 rounded-full bg-white animate-bounce [animation-delay:-.3s]"></div>
+                <div class="w-4 h-4 rounded-full bg-white animate-bounce [animation-delay:-.5s]"></div>
+              </div>
+            </div>
           </button>
         </div>
   

@@ -20,6 +20,7 @@ export class CompitionsComponent {
   totalElements = 0;
   page: number = 0;
   size: number = 10;
+  isDataLoading = false;
 
   constructor(private compitetionServiceService: CompitetionServiceService, private partcipationService: ParticipationService) { }
 
@@ -38,6 +39,7 @@ export class CompitionsComponent {
       (response)=>{
         this.competitions = response.content;
         this.totalElements = response.totalElements;
+        this.isDataLoading = true;
       },
       (error)=>{
         console.error('Error fetching competition list:', error);

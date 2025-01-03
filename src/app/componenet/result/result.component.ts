@@ -12,6 +12,7 @@ import { ParticipationService } from '../../service/participation.service';
 export class ResultComponent {
 
   userHistoricResponse: any = {};
+  isDataLoading = false;
   constructor(private participationService: ParticipationService) { }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class ResultComponent {
         (response) => {
           this.userHistoricResponse = response;
           console.log('User historic:', this.userHistoricResponse);
+          this.isDataLoading = true;
         },
         (error) => {
           console.error('Error fetching user historic:', error);

@@ -25,6 +25,7 @@ export class RegisterComponent {
   isErrorInPassword: boolean = false;
   isErrorInEmail: boolean = false;
   isPaswordFormatError: boolean = false;
+  isSubmitForm: boolean = false;
 
   constructor(private authService: AuthServiceService, private fb: FormBuilder, private router: Router) { 
     this.RegisterForm = this.fb.group({
@@ -38,6 +39,7 @@ export class RegisterComponent {
 
 
   onSubmit(): void {
+    this.isSubmitForm = true;
     if(this.RegisterForm.valid){
       const DateNow: string = new Date().toISOString().split('Z')[0];
       const nextYearDate: string = new Date(
@@ -58,12 +60,14 @@ export class RegisterComponent {
               this.router.navigateByUrl('');
             },
             error => {
+              this.isSubmitForm = false;
               this.errorMessage = error.error;
               this.errorAlert();
             }
           );
         },
         error =>{
+          this.isSubmitForm = false;
           if (Array.isArray(error.error.password)){
             this.errorMessage = `Password must meet the following format: abc@ABC123`;
           } 
@@ -75,6 +79,7 @@ export class RegisterComponent {
         }
       );
     }else{
+      this.isSubmitForm = false;
       this.displayValidationErrors();
     }
     
