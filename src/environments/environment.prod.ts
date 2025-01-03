@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://your-production-url/api/',
+    apiUrl: 'https://hunters-league.onrender.com/api/',
   };
   
