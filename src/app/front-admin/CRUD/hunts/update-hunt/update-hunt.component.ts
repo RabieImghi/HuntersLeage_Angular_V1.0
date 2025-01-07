@@ -7,6 +7,7 @@ import { ParticipationService } from '../../../../service/participation.service'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ComputationService } from '../../../../service/shared/computation.service';
+import { TokenStorageServiceService } from '../../../../service/token-storage-service.service';
 
 @Component({
   selector: 'app-update-hunt',
@@ -40,8 +41,9 @@ export class UpdateHuntComponent {
   constructor(private fb: FormBuilder ,
     private speciesServiceService: SpeciesServiceService, 
     private huntService: HuntService, 
-    private participationService: ParticipationService
-    , private computationService: ComputationService
+    private participationService: ParticipationService,
+    private computationService: ComputationService,
+    private tokenStorageService: TokenStorageServiceService
   ) { 
     this.updateHuntForm = this.fb.group({
       speciesId: ['',[Validators.required]],
@@ -92,50 +94,61 @@ export class UpdateHuntComponent {
   }
 
   onSubmit(): void {
-    const hunt = {
-      id: this.hunt.id,
-      speciesId: this.updateHuntForm.value.speciesId,
-      participationId: this.updateHuntForm.value.participationId,
-      weight: this.updateHuntForm.value.weight,
-    };
-    
-        Swal.fire({
-          title: 'Are you sure?',
-          text: `Do you really want to update hunt with Id: ${this.hunt.id}?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          confirmButtonText: 'Yes, update it!',
-          cancelButtonText: 'Cancel',
-        }).then((result) => {
-        if (result.isConfirmed) {
-          this.huntService.updateHunt(hunt).subscribe(
-             (response) => {
-                this.computationService.triggerRefresh();
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    text: 'The hunt has been updated.',
-                    showConfirmButton: false,
-                    timer: 1500 
-                });
-                this.toggleModalUpdate(false);
-             },
-             (error) => {
+    if(this.tokenStorageService.getSub() === 'jury_test'){
+      Swal.fire({
+        icon: 'error',
+        title: 'You are not allowed to update hunt',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else{
+      const hunt = {
+        id: this.hunt.id,
+        speciesId: this.updateHuntForm.value.speciesId,
+        participationId: this.updateHuntForm.value.participationId,
+        weight: this.updateHuntForm.value.weight,
+      };
+      
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Do you really want to update hunt with Id: ${this.hunt.id}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+      if (result.isConfirmed) {
+        this.huntService.updateHunt(hunt).subscribe(
+            (response) => {
+              this.computationService.triggerRefresh();
               Swal.fire({
-                  position: 'top-end', 
-                  icon: 'error',
-                  text: 'Error on updating hunt: ' + error.error,
+                  position: 'top-end',
+                  icon: 'success',
+                  text: 'The hunt has been updated.',
                   showConfirmButton: false,
                   timer: 1500 
               });
-              } 
-          );
-         } else if (result.dismiss === Swal.DismissReason.cancel) {
-           Swal.fire('Cancelled', 'The competition is safe :)', 'info');
-         }
-        });
+              this.toggleModalUpdate(false);
+            },
+            (error) => {
+            Swal.fire({
+                position: 'top-end', 
+                icon: 'error',
+                text: 'Error on updating hunt: ' + error.error,
+                showConfirmButton: false,
+                timer: 1500 
+            });
+            } 
+        );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire('Cancelled', 'The competition is safe :)', 'info');
+        }
+      });
+    }
+
+    
   }
 
   

@@ -6,7 +6,7 @@ import { ParticipationService } from '../../../../service/participation.service'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ComputationService } from '../../../../service/shared/computation.service';
-
+import { TokenStorageServiceService } from '../../../../service/token-storage-service.service';
 
 
 @Component({
@@ -24,7 +24,9 @@ export class CreateHuntComponent {
   createHuntForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder ,private speciesServiceService: SpeciesServiceService, private huntService: HuntService, private participationService: ParticipationService, private computationService: ComputationService) 
+  constructor(private fb: FormBuilder ,private speciesServiceService: SpeciesServiceService, private huntService: HuntService, private participationService: ParticipationService, private computationService: ComputationService
+    , private tokenStorageService: TokenStorageServiceService
+  ) 
   {
     this.createHuntForm = this.fb.group({
       speciesId: ['',[Validators.required]],
@@ -39,6 +41,14 @@ export class CreateHuntComponent {
   }
 
   onSubmit(): void {
+    if(this.tokenStorageService.getSub() === 'jury_test'){
+      Swal.fire({
+        icon: 'error',
+        title: 'You are not allowed to create hunt',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else{
     if (this.createHuntForm.valid) {
       this.huntService.createHunt(this.createHuntForm.value)
         .subscribe(
@@ -64,6 +74,7 @@ export class CreateHuntComponent {
               });
           }
         );
+      }
     }
   }
 

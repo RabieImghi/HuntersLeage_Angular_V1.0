@@ -1,5 +1,42 @@
 
 <div class="flex justify-end mb-4">
+  <div class="flex flex-wrap gap-4 items-center">
+    <div class="flex items-center">
+      <label for="elementsPerPage" class="text-sm font-semibold text-gray-700">Show</label>
+      <select
+        [(ngModel)]="size"
+        (change)="loadUsers()"
+        id="elementsPerPage"
+        class="ml-2 rounded-md border-gray-300 py-2 px-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+      >
+        <option *ngFor="let option of [5, 10, 20, 50]" [value]="option">{{ option }}</option>
+      </select>
+      <span class="text-sm font-semibold text-gray-700">entries</span>
+    </div>
+    <form [formGroup]="searchUserForm" class="relative w-full md:w-auto">
+      <input
+        type="text"
+        placeholder="Search species..."
+        formControlName="username"
+        (input)="loadUsers()"
+        class="w-full md:w-72 rounded-md border-gray-300 py-2 px-3 pr-10 text-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="absolute right-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 16l-4-4m0 0l4-4m-4 4h16"
+        />
+      </svg>
+    </form>
+  </div>
     <app-create-user></app-create-user>
   </div>
 

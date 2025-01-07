@@ -10,7 +10,8 @@
     <div class="w-full md:w-1/2 mb-4 md:mb-0">
       <input
         type="text"
-        
+        [(ngModel)]="searchCode"
+        (input)="loadCompetitionByCode()"
         placeholder="Search competitions..."
         class="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
       />
@@ -27,14 +28,14 @@
       >
         <option [value]="5">5</option>
         <option [value]="10">10</option>
-        <option [value]="20">50</option>
-        <option [value]="50">100</option>
+        <option [value]="20">20</option>
+        <option [value]="50">50</option>
       </select>
     </div>
   </div>
 
 
-  <div *ngIf="!isDataLoading" class="relative flex w-64 animate-pulse gap-2 p-4">
+  <div *ngIf="!isDataLoading " class="h-[60vh] relative flex w-64 animate-pulse gap-2 p-4">
     <div class="h-12 w-12 rounded-full bg-slate-400"></div>
     <div class="flex-1">
       <div class="mb-1 h-5 w-3/5 rounded-lg bg-slate-400 text-lg"></div>
@@ -42,7 +43,13 @@
     </div>
     <div class="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-400"></div>
   </div>
-  <div *ngIf="isDataLoading" class="grid grid-cols-1 md:grid-cols-2">
+
+  <div *ngIf="isDataEmpty" class="flex justify-center items-center h-[60vh]">
+    <p class="text-2xl font-semibold">No competitions found</p>
+
+  </div>
+
+  <div *ngIf="isDataLoading && !isDataEmpty" class="grid grid-cols-1 md:grid-cols-2">
       <div *ngFor="let competition of competitions" data-aos="zoom-in"  class="m-3 flex items-start gap-6 p-6 bg-white rounded-xl shadow-md">
         <div class="shrink-0">
           <div class="w-32 h-32 rounded-full overflow-hidden">
@@ -78,6 +85,7 @@
               </div>
               <button
                 *ngIf="competition.openRegistration"
+                [disabled]="isParticipating"
                 (click)="onParticipate(competition)"
                 class="text w-24 h-8 rounded-lg mt-2 bg-white-500 text-black shadow-md relative overflow-hidden group z-10 hover:text-white duration-1000"
               >
@@ -143,3 +151,4 @@
     </div>
   </div>
 </div>
+<app-footer></app-footer>

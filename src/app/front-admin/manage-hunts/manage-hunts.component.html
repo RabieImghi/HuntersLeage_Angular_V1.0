@@ -1,6 +1,20 @@
 <div class="relative">
    
     <div class="flex justify-end mb-4">
+        <div class="flex flex-wrap gap-4 items-center">
+            <div class="flex items-center">
+              <label for="elementsPerPage" class="text-sm font-semibold text-gray-700">Show</label>
+              <select
+                [(ngModel)]="size"
+                (change)="loadHunts()"
+                id="elementsPerPage"
+                class="ml-2 rounded-md border-gray-300 py-2 px-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option *ngFor="let option of [5, 10, 20, 50]" [value]="option">{{ option }}</option>
+              </select>
+              <span class="text-sm font-semibold text-gray-700">entries</span>
+            </div>
+          </div>
         <app-create-hunt></app-create-hunt>
     </div>
 
@@ -32,7 +46,15 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <div *ngIf="!isDataLoading" class="h-[60vh] relative flex w-64 animate-pulse gap-2 p-4">
+                <div class="h-12 w-12 rounded-full bg-slate-400"></div>
+                <div class="flex-1">
+                  <div class="mb-1 h-5 w-3/5 rounded-lg bg-slate-400 text-lg"></div>
+                  <div class="h-5 w-[90%] rounded-lg bg-slate-400 text-sm"></div>
+                </div>
+                <div class="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-400"></div>
+            </div>
+            <tbody *ngIf="isDataLoading">
                 <tr *ngFor="let hunt of Hunts">
                     <td class="p-4 border-b border-blue-gray-50">
                         <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ hunt.species.name }}</p>

@@ -7,12 +7,14 @@ import { CreateUserComponent } from '../CRUD/user/create-user/create-user.compon
 import { UserResponse } from '../interface/user-response';
 import { UserService } from '../../service/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ComputationService } from '../../service/shared/computation.service';
+import { SerachUser } from '../interface/serach-user';
 
 @Component({
   selector: 'app-manage-users',
   standalone: true,
-  imports: [CommonModule, DetailUserComponent, UpdateUserComponent, DeleteUserComponent,CreateUserComponent],
+  imports: [CommonModule, DetailUserComponent, UpdateUserComponent, DeleteUserComponent,CreateUserComponent, ReactiveFormsModule, FormsModule],
   templateUrl: './manage-users.component.html'
 })
 export class ManageUsersComponent {
@@ -21,6 +23,12 @@ export class ManageUsersComponent {
   size: number = 12;
   totalElements: number = 0;
   users: UserResponse[] =[];
+  searchUser : SerachUser = {
+    id: '',
+    username: '',
+    email: '',
+    cin: ''
+  };
   searchUserForm = this.fb.group({
     id: [''],
     username: [''],
@@ -30,7 +38,9 @@ export class ManageUsersComponent {
 
   
   
-  constructor(private userService: UserService, private fb: FormBuilder, private com: ComputationService) {}
+  constructor(private userService: UserService, private fb: FormBuilder, private com: ComputationService) {
+
+  }
 
 
   ngOnInit(): void {
@@ -41,7 +51,7 @@ export class ManageUsersComponent {
   }
 
   getUsers(): void {
-    this.userService.getUsers(this.searchUserForm.value, this.page, this.size).subscribe(
+    this.userService.getUsers(this.searchUser, this.page, this.size).subscribe(
       response => {
         this.users = response.content;
         this.totalElements = response.totalElements;
@@ -52,6 +62,17 @@ export class ManageUsersComponent {
       }
     );
   }
+  loadUsers(): void {
+    this.page = 0;
+    this.searchUser = {
+      id: this.searchUserForm.value.id || '',
+      username: this.searchUserForm.value.username || '',
+      email: this.searchUserForm.value.email || '',
+      cin: this.searchUserForm.value.cin || ''
+    };
+    this.getUsers();
+  }
+  
 
   onPageChange(newPage: number): void {
     this.page = newPage;

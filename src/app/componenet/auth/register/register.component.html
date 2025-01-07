@@ -22,35 +22,86 @@
         </div>
   
         <div class="space-y-6">
+          <div class="flex space-x-4">
+            <div>
+              <label [ngClass]="{ 'text-red-500': isErrorInUsername }" class="text-[#6A42C2] text-sm mb-2 block">Username</label>
+              <div class="relative flex items-center">
+                <input
+                  formControlName="username"
+                  type="text"
+                  [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInUsername }"
+                  (ngModelChange)="isErrorInUsername = false"
+                  class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
+                  placeholder="Enter username"
+                />
+              </div>
+            </div>
+          
+            <div>
+              <label [ngClass]="{ 'text-red-500': isErrorInEmail }" class="text-[#6A42C2] text-sm mb-2 block">Email</label>
+              <div class="relative flex items-center">
+                <input
+                  formControlName="email"
+                  type="email"
+                  [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInEmail }"
+                  (ngModelChange)="isErrorInEmail = false"
+                  class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
+                  placeholder="Enter email"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-4">
+            <div class="flex-1">
+              <label class="text-[#6A42C2] text-sm mb-2 block">First Name</label>
+              <div class="relative flex items-center">
+                <input
+                  formControlName="firstName"
+                  type="text"
+                  class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
+                  placeholder="Enter first name"
+                />
+              </div>
+            </div>
+            <div class="flex-1">
+              <label class="text-[#6A42C2] text-sm mb-2 block">Last Name</label>
+              <div class="relative flex items-center">
+                <input
+                  formControlName="lastName"
+                  type="text"
+                  class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
+                  placeholder="Enter last name"
+                />
+              </div>
+            </div>
+          </div>
         
-  
-          <div>
-            <label  [ngClass]="{ 'text-red-500': isErrorInUsername }" class="text-[#6A42C2] text-sm mb-2 block">Username</label>
-            <div class="relative flex items-center">
-              <input
-                formControlName="username"
-                type="text"
-                [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInUsername }"
-                (ngModelChange)="isErrorInUsername = false"
-                class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
-                placeholder="Enter username"
-              />
+          <div class="flex space-x-4">
+            <div>
+              <label class="text-[#6A42C2] text-sm mb-2 block">CIN</label>
+              <div class="relative flex items-center">
+                <input
+                  formControlName="cin"
+                  type="text"
+                  class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
+                  placeholder="Enter CIN"
+                />
+              </div>
+            </div>
+          
+            <div>
+              <label class="text-[#6A42C2] text-sm mb-2 block">Nationality</label>
+              <div class="relative flex items-center">
+                <input
+                  formControlName="nationality"
+                  type="text"
+                  class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
+                  placeholder="Enter nationality"
+                />
+              </div>
             </div>
           </div>
-          <div>
-            <label  [ngClass]="{ 'text-red-500': isErrorInEmail }" class="text-[#6A42C2] text-sm mb-2 block">Email</label>
-            <div class="relative flex items-center">
-              <input
-                formControlName="email"
-                type="email"
-                [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInEmail }"
-                (ngModelChange)="isErrorInEmail = false"
-                class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
-                placeholder="Enter email"
-              />
-            </div>
-          </div>
-  
+        
           <div>
             <label [ngClass]="{ 'text-red-500': isErrorInPassword }" class="text-[#6A42C2] text-sm mb-2 block">Password</label>
             <div class="relative flex items-center">
@@ -58,21 +109,15 @@
                 formControlName="password"
                 [(ngModel)]="password"
                 [ngClass]="{ 'border-red-500 focus:border-red-500': isErrorInPassword }"
-                (ngModelChange)="isErrorInPassword = false; "
-                
+                (ngModelChange)="isErrorInPassword = false"
                 type="password"
                 class="text-[#6A42C2] bg-white border border-[#6A42C2] w-full text-sm px-4 py-2.5 rounded-md outline-[#6A42C2]"
                 placeholder="Enter password"
               />
             </div>
           </div>
-  
-
-  
-          
-  
-         
-  
+        
+          <!-- Terms and Conditions -->
           <div class="flex items-center">
             <input
               id="remember-me"
@@ -86,6 +131,7 @@
             </label>
           </div>
         </div>
+        
 
         <div class="mt-12">
           <button 

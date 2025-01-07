@@ -6,6 +6,7 @@ import { RegisterRequest } from '../interfaces/register-request';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthRequest } from '../interfaces/auth-request';
+import { first } from 'rxjs';
 
 
 @Component({
@@ -32,6 +33,11 @@ export class RegisterComponent {
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      cin : ['', [Validators.required, Validators.minLength(4)]],
+      nationality : ['', [Validators.required, Validators.minLength(3)]],
+
     
     })
 
@@ -40,6 +46,7 @@ export class RegisterComponent {
 
   onSubmit(): void {
     this.isSubmitForm = true;
+  
     if(this.RegisterForm.valid){
       const DateNow: string = new Date().toISOString().split('Z')[0];
       const nextYearDate: string = new Date(
@@ -51,7 +58,12 @@ export class RegisterComponent {
         this.RegisterForm.value.username, 
         this.RegisterForm.value.password, 
         this.RegisterForm.value.email,
-        'null','null','null','null',nextYearDate,DateNow);
+        this.RegisterForm.value.firstName,
+        this.RegisterForm.value.lastName,
+        this.RegisterForm.value.cin,
+        this.RegisterForm.value.nationality,
+        nextYearDate,DateNow);
+        console.log(registerRequest);
       this.authService.register(registerRequest).subscribe(
         data => {
           const authRequest = new AuthRequest(this.RegisterForm.value.username, this.RegisterForm.value.password);

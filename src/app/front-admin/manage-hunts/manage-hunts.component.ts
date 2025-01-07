@@ -5,11 +5,12 @@ import { DeleteHuntComponent } from '../CRUD/hunts/delete-hunt/delete-hunt.compo
 import { UpdateHuntComponent } from '../CRUD/hunts/update-hunt/update-hunt.component';
 import { HuntService } from '../../service/hunt.service';
 import { ComputationService } from '../../service/shared/computation.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-manage-hunts',
   standalone: true,
-  imports: [CommonModule,CreateHuntComponent, DeleteHuntComponent, UpdateHuntComponent],
+  imports: [CommonModule,CreateHuntComponent, DeleteHuntComponent, UpdateHuntComponent,FormsModule],
   templateUrl: './manage-hunts.component.html'
 })
 export class ManageHuntsComponent {
@@ -17,7 +18,8 @@ export class ManageHuntsComponent {
   Hunts: any = [];
   totalElements = 0;
   page = 0;
-  size = 5;
+  size = 10;
+  isDataLoading = false; 
   constructor(private huntService: HuntService,private computationService: ComputationService) { }
 
   ngOnInit(): void {
@@ -34,14 +36,20 @@ export class ManageHuntsComponent {
       (response)=>{
         this.Hunts = response.content;
         this.totalElements = response.totalElements;
+        this.isDataLoading = true;
       },
       (error)=>{
         console.error('Error fetching hunts list:', error);
       }
     );
   }
+  loadHunts(): void {
+    this.isDataLoading = false;
+    this.getHunts();
+  }
 
   onPageChange(newPage: number): void {
+    this.isDataLoading = false;
     this.page = newPage;
     this.getHunts();
   }

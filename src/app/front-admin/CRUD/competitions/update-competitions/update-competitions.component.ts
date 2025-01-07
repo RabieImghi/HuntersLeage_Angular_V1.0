@@ -6,6 +6,7 @@ import { UpdateCompetition } from '../../../interface/update-competition';
 import Swal from 'sweetalert2';
 import { ComputationService } from '../../../../service/shared/computation.service';
 import { CompitetionServiceService } from '../../../../service/compitetion-service.service';
+import { TokenStorageServiceService } from '../../../../service/token-storage-service.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class UpdateCompetitionsComponent {
   @Input() competition: any;
 
   form: FormGroup;
-  constructor(private fb: FormBuilder, private c: CompitetionServiceService, private computationService: ComputationService) {
+  constructor(private fb: FormBuilder, private c: CompitetionServiceService, private computationService: ComputationService,
+    private tokenStorageService: TokenStorageServiceService) {
     this.form = this.fb.group({
       id: [false],
       code: ['',[Validators.required,Validators.pattern(/^[A-Za-z]+_\d{4}-\d{2}-\d{2}$/)]],
@@ -48,32 +50,43 @@ export class UpdateCompetitionsComponent {
   }
 
   onSubmit(): void {
-    const competition = this.form.value as UpdateCompetition;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Do you really want to update competition with Code: ${this.competition.code}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'Cancel',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.c.updateCompetition(competition).subscribe(
-          (response)=>{
-            this.successAlert();
-            this.form.reset();
-            this.computationService.triggerRefresh();
-          },
-          (error)=>{
-            this.errorAlert(error.error);
-          }
-        );
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire('Cancelled', 'The competition is safe :)', 'info');
-      }
-    });
+    if(this.tokenStorageService.getSub() === 'jury_test'){
+      Swal.fire({
+        icon: 'error',
+        title: 'You are not allowed to update competition',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else{
+      const competition = this.form.value as UpdateCompetition;
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Do you really want to update competition with Code: ${this.competition.code}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.c.updateCompetition(competition).subscribe(
+            (response)=>{
+              this.successAlert();
+              this.form.reset();
+              this.computationService.triggerRefresh();
+            },
+            (error)=>{
+              this.errorAlert(error.error);
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire('Cancelled', 'The competition is safe :)', 'info');
+        }
+      });
+    }
+
+    
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['competition'] && this.competition) {

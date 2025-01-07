@@ -17,25 +17,27 @@ import { isAdminGuardGuard } from './guard/is-admin-guard.guard';
 import { UnauthorizedComponent } from './componenet/unauthorized/unauthorized.component';
 import { LogoutComponent } from './componenet/auth/logout/logout.component';
 import { isAuthenticatedGuardGuard } from './guard/is-authenticated-guard.guard';
+import { isLoginGuard } from './guard/is-login.guard';
+import { isJuryTestGuard } from './guard/is-jury-test.guard';
 
 export const routes: Routes = [
     {path: '', component: HeroComponent},
     {path: 'competitions', component: CompitionsComponent,canActivate: [isAuthenticatedGuardGuard]},
     {path: 'Unauthorized', component: UnauthorizedComponent},
     {path: 'species', component: SpeceisComponent,canActivate: [isAuthenticatedGuardGuard]},
-    {path: 'login', component: LoginComponent},
+    {path: 'login', component: LoginComponent , canActivate : [ isLoginGuard]},
     {path: 'logout', component: LogoutComponent,canActivate: [isAuthenticatedGuardGuard]},
     {path: 'admin/logout', component: LogoutComponent,canActivate: [isAuthenticatedGuardGuard]},
-    {path: 'register', component: RegisterComponent},
+    {path: 'register', component: RegisterComponent, canActivate : [ isLoginGuard]},
     {path: 'top-three-user', component: TopThreeComponent,canActivate: [isAuthenticatedGuardGuard]},
     {path: 'results', component: ResultComponent,canActivate: [isAuthenticatedGuardGuard]},
     {path: 'admin', component: HomeAdminComponent, canActivate: [isJuryGuardGuard], children: [
-        {path: '',component: AnalysticsComponent},
+        {path: '',component: AnalysticsComponent, canActivate: [isJuryTestGuard]},
         {path: 'competitions', component: ManageCompetitionsComponent},
         {path: 'hunts', component: ManageHuntsComponent},
         {path: 'species', component: ManageSpeciesComponent, canActivate: [isAdminGuardGuard]},
-        {path: 'users', component: ManageUsersComponent,canActivate: [isAdminGuardGuard]},
-        {path: 'analytics', component: AnalysticsComponent}
+        {path: 'users', component: ManageUsersComponent,canActivate: [isJuryTestGuard, isAdminGuardGuard]},
+        {path: 'analytics', component: AnalysticsComponent, canActivate: [isJuryTestGuard]}
 
     ]},
 ];

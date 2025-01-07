@@ -37,6 +37,19 @@ export class TokenStorageServiceService {
     }
     return null;
   }
+  getSub(): string | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const decodedToken = this.jwtHelper.decodeToken(token);
+        return decodedToken?.sub || null;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
   isTokenExpired(): boolean {
     const token = this.getToken();
     return token ? this.jwtHelper.isTokenExpired(token) : true; 

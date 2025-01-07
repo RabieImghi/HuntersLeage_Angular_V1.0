@@ -5,6 +5,8 @@ import { DeleteCompetitionsComponent } from '../CRUD/competitions/delete-competi
 import { UpdateCompetitionsComponent } from '../CRUD/competitions/update-competitions/update-competitions.component';
 import { CompitetionServiceService } from '../../service/compitetion-service.service';
 import { ComputationService } from '../../service/shared/computation.service';
+import { FormsModule } from '@angular/forms';
+import { TokenStorageServiceService } from '../../service/token-storage-service.service';
 
 interface CompetitionResponseVm {
   id: string;
@@ -20,7 +22,7 @@ interface CompetitionResponseVm {
 @Component({
   selector: 'app-manage-competitions',
   standalone: true,
-  imports: [CommonModule, CreateCompetitionsComponent, DeleteCompetitionsComponent, UpdateCompetitionsComponent],  
+  imports: [CommonModule,FormsModule, CreateCompetitionsComponent, DeleteCompetitionsComponent, UpdateCompetitionsComponent],  
   templateUrl: './manage-competitions.component.html'
 })
 
@@ -31,10 +33,12 @@ export class ManageCompetitionsComponent {
   constructor(private compitetionServiceService: CompitetionServiceService,private computationService: ComputationService) { }
 
   
+  isDataLoading = false;
   competitions: any = [];
   totalElements = 0;
   page = 0;
   size = 10;
+  searchCode: string = '';
 
   getCompetitions(): void {
     this.compitetionServiceService.getCompitetionList(this.page, this.size)
@@ -42,6 +46,7 @@ export class ManageCompetitionsComponent {
       (response) => {
         this.competitions = response.content;
         this.totalElements = response.totalElements;
+        this.isDataLoading = true;
       },
       (error) => {
         console.error('Error fetching competition list:', error);
@@ -58,8 +63,31 @@ export class ManageCompetitionsComponent {
     });
    
   }
+  loadCompetiton(): void {
+    this.isDataLoading = false;
+    if(this.searchCode) {
+      this.compitetionServiceService.getCompitetionListByCode(this.searchCode, this.page, this.size)
+      .subscribe(
+        (response) => {
+          this.competitions = response.content;
+          this.totalElements = response.totalElements;
+          this.isDataLoading = true;
+        },
+        (error) => {
+          console.error('Error fetching competition list:', error);
+        }
+      );
+    } else {
+      this.getCompetitions();
+    }
+  }
   onPageChange(newPage: number): void {
+    this.isDataLoading = false;
     this.page = newPage;
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     this.getCompetitions();
   }
   get totalPages(): number {

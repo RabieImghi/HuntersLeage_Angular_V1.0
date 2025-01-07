@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule,Validators } from '@angular
 import { CreateCompetition } from '../../../interface/create-competition';
 import Swal from 'sweetalert2';
 import { ComputationService } from '../../../../service/shared/computation.service';
+import { TokenStorageServiceService } from '../../../../service/token-storage-service.service';
 
 @Component({
   selector: 'app-create-competitions',
@@ -16,8 +17,10 @@ import { ComputationService } from '../../../../service/shared/computation.servi
 export class CreateCompetitionsComponent {
   isModalOpen = false;
   form: FormGroup;
-
-  constructor(private compitetionServiceService: CompitetionServiceService, private fb: FormBuilder,private computationService: ComputationService) {
+  username = '';
+  constructor(private compitetionServiceService: CompitetionServiceService, private fb: FormBuilder,private computationService: ComputationService,
+    private tokenStorageService: TokenStorageServiceService
+  ) {
     this.form = this.fb.group({
         code: ['', [Validators.required,Validators.pattern(/^[A-Za-z]+_\d{4}-\d{2}-\d{2}$/)]],
         location: ['', [Validators.required]],
@@ -27,24 +30,37 @@ export class CreateCompetitionsComponent {
         maxParticipants: ['', [Validators.required,Validators.min(1)]],
         openRegistration: [false],
     });
+    this.username = this.tokenStorageService.getSub() || '';
+  
    }
 
   
 
   onSubmit(): void {
-    const competition = this.form.value as CreateCompetition;
-    console.log(competition);
-    this.compitetionServiceService.createCompetition(competition)
-      .subscribe(
-        (response) => {
-          this.toggleModal(false);
-          this.successAlert();
-          this.form.reset();
-          this.computationService.triggerRefresh();
-        },
-        (error) => {
-          this.errorAlert(error.error);
-        });
+    if(this.username === 'jury_test'){
+      Swal.fire({
+        icon: 'error',
+        title: 'You are not allowed to create competition',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+    }else{
+      const competition = this.form.value as CreateCompetition;
+      console.log(competition);
+      this.compitetionServiceService.createCompetition(competition)
+        .subscribe(
+          (response) => {
+            this.toggleModal(false);
+            this.successAlert();
+            this.form.reset();
+            this.computationService.triggerRefresh();
+          },
+          (error) => {
+            this.errorAlert(error.error);
+          });
+    }
+    
   }
 
 

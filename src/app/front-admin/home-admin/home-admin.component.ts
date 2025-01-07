@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router, ActivatedRoute, RouterModule, RouterOutlet} from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { TokenStorageServiceService } from '../../service/token-storage-service.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -27,15 +27,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class HomeAdminComponent {
   dropdownOpen = false;
-
- 
+  username= '';
   menuState = 'in';
   backdropState = 'hidden'; 
   isMobile = false; 
   activeLink = 'Analytics';
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router,
-    private activatedRoute: ActivatedRoute) {}
+    private activatedRoute: ActivatedRoute, private token: TokenStorageServiceService) {}
 
   ngOnInit() {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
@@ -65,6 +64,7 @@ export class HomeAdminComponent {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  
   closeMenu() {
     if (this.isMobile) {
       this.menuState = 'out';

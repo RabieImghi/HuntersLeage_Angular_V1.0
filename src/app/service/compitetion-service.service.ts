@@ -33,5 +33,9 @@ export class CompitetionServiceService {
     const url = `${environment.apiUrl}competition/nextCompetition`;
     return this.http.get<any>(url);
   }
+  getCompitetionListByCode(code: string, page: number, size : number ): Observable<any> {
+    const url = `${environment.apiUrl}competition/search/${code}`;
+    return this.http.get<any>(url);
+  }
  
 }

@@ -50,7 +50,6 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.competition = response;
-          console.log('Competition data:', this.competition);
           this.initializeTimer();
         },
         (error) => {
