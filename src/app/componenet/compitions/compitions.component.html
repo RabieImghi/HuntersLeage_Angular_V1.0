@@ -6,12 +6,13 @@
       Discover our wide range of exciting competitions and get ready to participate!
     </p>
   </div>
+
   <div class="flex flex-wrap justify-between items-center mb-6">
     <div class="w-full md:w-1/2 mb-4 md:mb-0">
       <input
         type="text"
         [(ngModel)]="searchCode"
-        (input)="loadCompetitionByCode()"
+        (input)="onSearch()"
         placeholder="Search competitions..."
         class="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
       />
@@ -23,7 +24,7 @@
       <select
         id="itemsPerPage"
         [(ngModel)]="size"
-        (change)="getCompetitions()"
+        (change)="onPageChange(page)"
         class="py-2 px-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
       >
         <option [value]="5">5</option>
@@ -34,121 +35,68 @@
     </div>
   </div>
 
-
-  <div *ngIf="!isDataLoading " class="h-[60vh] relative flex w-64 animate-pulse gap-2 p-4">
-    <div class="h-12 w-12 rounded-full bg-slate-400"></div>
-    <div class="flex-1">
-      <div class="mb-1 h-5 w-3/5 rounded-lg bg-slate-400 text-lg"></div>
-      <div class="h-5 w-[90%] rounded-lg bg-slate-400 text-sm"></div>
-    </div>
-    <div class="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-400"></div>
+  <!-- Loading State -->
+  <div *ngIf="(isLoading$ | async)" class="flex justify-center items-center h-[60vh]">
+    <p class="text-lg text-gray-600">Loading competitions...</p>
   </div>
 
-  <div *ngIf="isDataEmpty" class="flex justify-center items-center h-[60vh]">
-    <p class="text-2xl font-semibold">No competitions found</p>
-
-  </div>
-
-  <div *ngIf="isDataLoading && !isDataEmpty" class="grid grid-cols-1 md:grid-cols-2">
-      <div *ngFor="let competition of competitions" data-aos="zoom-in"  class="m-3 flex items-start gap-6 p-6 bg-white rounded-xl shadow-md">
-        <div class="shrink-0">
-          <div class="w-32 h-32 rounded-full overflow-hidden">
-            <img
-              src="/assets/slide.png"
-              alt="Event"
-              class="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-  
-        <div class="flex-1 min-w-0">
-          <div class="flex items-start justify-between mb-4">
-            <div class="space-y-2">
-              <div class="hidden md:block flex items-center text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m9 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="text-sm">{{ competition.date | date: 'shortTime' }}</span>
-              </div>
-  
-              <div class="hidden md:block flex items-center text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" />
-                </svg>
-                <span class="text-sm">{{ competition.location }}</span>
-              </div>
-            </div>
-  
-            <div>
-              <div class="px-3 py-2 bg-[#6A42C2] text-white text-xs font-medium rounded-lg leading-tight">
-                {{ competition.date | date: 'yyyy-MM-dd' }}
-              </div>
-              <button
-                *ngIf="competition.openRegistration"
-                [disabled]="isParticipating"
-                (click)="onParticipate(competition)"
-                class="text w-24 h-8 rounded-lg mt-2 bg-white-500 text-black shadow-md relative overflow-hidden group z-10 hover:text-white duration-1000"
-              >
-                <span
-                  class="absolute bg-[#6A42C2] w-24 h-24 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"
-                ></span>
-                <span
-                  class="absolute bg-[#6A42C2] w-24 h-24 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"
-                ></span>
-                Participe
-              </button>
-  
-            </div>
-          </div>
-  
-          <h2 class="text-xl font-semibold text-gray-900 mb-2">
-            Competition Code: {{ competition.code }}
-          </h2>
-  
-          <p class="text-gray-600 mb-4 line-clamp-2">
-            Species Type: {{ competition.speciesType }}
-          </p>
-  
-          <div class="flex items-center text-sm">
-            <span class="text-gray-600">Participants:</span>
-            <span class="ml-1 font-medium text-gray-900">
-              {{ competition.minParticipants }} - {{ competition.maxParticipants }}
-            </span>
-          </div>
-  
-          <div class="mt-2">
-            <span
-              [ngClass]="competition.openRegistration ? 'text-green-600' : 'text-red-600'"
-              class="font-semibold"
-            >
-              {{ competition.openRegistration ? 'Registration Open' : 'Registration Closed' }}
-            </span>
-          </div>
+  <!-- Competitions List -->
+  <div *ngIf="competitions.length > 0" class="grid grid-cols-1 md:grid-cols-2">
+    <div *ngFor="let competition of competitions" class="m-3 flex items-start gap-6 p-6 bg-white rounded-xl shadow-md">
+      <div class="shrink-0">
+        <div class="w-32 h-32 rounded-full overflow-hidden">
+          <img src="/assets/slide.png" alt="Event" class="w-full h-full object-cover" />
         </div>
       </div>
-  </div>
-  <div *ngIf="isDataLoading" class="flex justify-end pb-4 mt-4">
-    <div class="pagination-controls flex items-center space-x-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">
+          Competition Code: {{ competition.code }}
+        </h2>
+        <p class="text-gray-600 mb-4">
+          Species Type: {{ competition.speciesType }}
+        </p>
+        <p class="text-sm text-gray-600">
+          Location: {{ competition.location }}
+        </p>
+        <p class="text-sm text-gray-600">
+          Date: {{ competition.date | date: 'yyyy-MM-dd' }}
+        </p>
+        <p class="text-sm text-gray-600">
+          Participants: {{ competition.minParticipants }} - {{ competition.maxParticipants }}
+        </p>
         <button
-          class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          [disabled]="page === 0"
-          (click)="onPageChange(page - 1)"
+          (click)="onParticipate(competition.id)"
+          [disabled]="competition.openRegistration === false"
+          class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
         >
-          Previous
+          Participate
         </button>
-      
-        <span class="text-sm text-slate-600">
-          Page {{ page + 1 }} of {{ totalPages }}
-        </span>
-      
-        <button
-          class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          [disabled]="page + 1 >= totalElements / size"
-          (click)="onPageChange(page + 1)"
-        >
-          Next
-        </button>
+      </div>
     </div>
   </div>
+
+  <!-- No Competitions -->
+  <div *ngIf="competitions.length === 0" class="flex justify-center items-center h-[60vh]">
+    <p class="text-lg text-gray-600">No competitions found.</p>
+  </div>
+
+  <div class="flex justify-end mt-4">
+    <button
+      (click)="onPageChange(page - 1)"
+      [disabled]="page === 0"
+      class="mr-2 px-4 py-2 bg-gray-300 text-black rounded-lg"
+    >
+      Previous
+    </button>
+    <span class="px-4 py-2">Page {{ page + 1 }}</span>
+    <button
+      (click)="onPageChange(page + 1)"
+      [disabled]="competitions.length < size"
+      class="ml-2 px-4 py-2 bg-gray-300 text-black rounded-lg"
+    >
+      Next
+    </button>
+  </div>
+
 </div>
 <app-footer></app-footer>

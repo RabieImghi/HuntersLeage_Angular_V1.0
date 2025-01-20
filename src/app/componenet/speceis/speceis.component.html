@@ -1,122 +1,97 @@
 <div class="container mt-[100px] mx-auto">
   <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
     <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-gray-800">Explore Our Competitions</h1>
-      <p class="text-gray-600 mt-2">
-        Discover our wide range of exciting competitions and get ready to participate!
-      </p>
+      <h1 class="text-4xl font-bold text-gray-800">Explore Our Species</h1>
+      <p class="text-gray-600 mt-2">Discover a variety of species and their details!</p>
     </div>
     <div class="flex flex-wrap justify-between items-center mb-6">
       <div class="w-full md:w-1/2 mb-4 md:mb-0">
         <input
           type="text"
           [(ngModel)]="searchName"
-          (input)="loadSpecies()"
-          placeholder="Search competitions..."
+          (input)="searchSpecies()"
+          placeholder="Search species..."
           class="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
         />
       </div>
       <div class="w-full md:w-auto">
-        <label for="itemsPerPage" class="block text-sm font-medium text-gray-700 mb-1">
-          Show
-        </label>
+        <label for="itemsPerPage" class="block text-sm font-medium text-gray-700 mb-1">Show</label>
         <select
           id="itemsPerPage"
           [(ngModel)]="size"
-          (change)="getSpecies()"
+          (change)="onPageChange(page)"
           class="py-2 px-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6A42C2] focus:border-transparent"
         >
           <option [value]="5">5</option>
           <option [value]="10">10</option>
-          <option [value]="20">50</option>
-          <option [value]="50">100</option>
+          <option [value]="20">20</option>
+          <option [value]="50">50</option>
         </select>
       </div>
     </div>
 
-   
-    <div *ngIf="!isDataLoading" class="h-[60vh] relative flex w-64 animate-pulse gap-2 p-4">
-      <div class="h-12 w-12 rounded-full bg-slate-400"></div>
-      <div class="flex-1">
-        <div class="mb-1 h-5 w-3/5 rounded-lg bg-slate-400 text-lg"></div>
-        <div class="h-5 w-[90%] rounded-lg bg-slate-400 text-sm"></div>
-      </div>
-      <div class="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-400"></div>
-    </div>
-    <div *ngIf="isDataEmpty" class="flex justify-center items-center h-[60vh]">
-      <p class="text-2xl font-semibold">No Species found</p>
+    <!-- Loading State -->
+    <div *ngIf="(isLoading$ | async)" class="flex justify-center items-center h-[60vh]">
+      <p class="text-lg text-gray-600">Loading species...</p>
     </div>
 
-
-    <div  *ngIf="isDataLoading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <div
-        *ngFor="let species of speciesList"
-        class="bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-all group relative transform transition-transform duration-300 hover:translate-y-[-20px] hover:scale-105 group"
-      >
+    <!-- Species List -->
+    <div *ngIf="speciesList.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div *ngFor="let species of speciesList" class="bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-all group relative transform transition-transform duration-300 hover:translate-y-[-20px] hover:scale-105 group">
         <div class="aspect-[4/3] relative bg-gray-200">
           <img
-          [src]="species.category === 'SEA' ? 'assets/sea.png' : species.category === 'BIRD' ? 'assets/brid.png' : species.category === 'BIG_GAME' ? 'assets/big.png' : 'assets/default.png'" 
-            alt="{{ species.name }}"
+            [src]="species?.category === 'SEA' ? 'assets/sea.png' : species?.category === 'BIRD' ? 'assets/brid.png' : species?.category === 'BIG_GAME' ? 'assets/big.png' : 'assets/default.png'"
+            alt="{{ species?.name }}"
             class="absolute inset-0 h-full w-full object-cover filter brightness-50"
           />
-        
           <div class="absolute inset-0 flex items-center justify-center">
-            <p class="text-white font-bold text-2xl">{{ species.category }}</p>
+            <p class="text-white font-bold text-2xl">{{ species?.category }}</p>
           </div>
         </div>
-  
         <div class="p-6">
-          <h3 class="text-xl text-sm text-[#6A42C2] mb-2">
-            {{ species.name }}
-          </h3>
-  
-          <p class="text-gray-600 text-sm mb-2">
-            <strong>Minimum Weight:</strong> {{ species.minimumWeight }} kg
-          </p>
+          <h3 class="text-xl text-sm text-[#6A42C2] mb-2">{{ species?.name }}</h3>
+          <p class="text-gray-600 text-sm mb-2"><strong>Minimum Weight:</strong> {{ species?.minimumWeight }} kg</p>
           <p class="text-sm mb-2">
-            <strong>
-              Difficulty: 
-              <span [class]="species.difficulty === 'LEGENDARY' ? 'text-red-500' : species.difficulty === 'EPIC' ? 'text-orange-500' : species.difficulty === 'RARE' ? 'text-yellow-500' : 'text-green-500'">
-                {{ species.difficulty }}
-              </span>
-            </strong>
+            <strong>Difficulty:</strong>
+            <span [class]="species?.difficulty === 'LEGENDARY' ? 'text-red-500' : species?.difficulty === 'EPIC' ? 'text-orange-500' : species?.difficulty === 'RARE' ? 'text-yellow-500' : 'text-green-500'">
+              {{ species?.difficulty }}
+            </span>
           </p>
-          <p class="text-gray-600 text-sm mb-2">
-            <strong>Hunted :</strong> {{ species.minimumWeight }} times
-          </p>
-          
-          <div
-            class="absolute top-4 right-4 bg-[#6A42C2] text-white text-xs font-medium px-3 py-2 rounded-lg"
-          >
-            {{ species.points }} Points
+          <p class="text-gray-600 text-sm mb-2"><strong>Hunted :</strong> {{ species?.hunted }} times</p>
+          <div class="absolute top-4 right-4 bg-[#6A42C2] text-white text-xs font-medium px-3 py-2 rounded-lg">
+            {{ species?.points }} Points
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="isDataLoading" class="flex justify-end pb-4 mt-4">
+
+    <!-- No Species -->
+    <div *ngIf="speciesList?.length === 0" class="flex justify-center items-center h-[60vh]">
+      <p class="text-lg text-gray-600">No Species found</p>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="(isLoading$ | async)" class="flex justify-end pb-4 mt-4">
       <div class="pagination-controls flex items-center space-x-4">
-          <button
-            class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            [disabled]="page === 0"
-            (click)="onPageChange(page - 1)"
-          >
-            Previous
-          </button>
-        
-          <span class="text-sm text-slate-600">
-            Page {{ page + 1 }} of {{ totalPages }}
-          </span>
-        
-          <button
-            class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            [disabled]="page + 1 >= totalElements / size"
-            (click)="onPageChange(page + 1)"
-          >
-            Next
-          </button>
+        <button
+          class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          [disabled]="page === 0"
+          (click)="onPageChange(page - 1)"
+        >
+          Previous
+        </button>
+        <span class="text-sm text-slate-600">
+          Page {{ page + 1 }} of {{ totalPages | async }}
+        </span>
+        <button
+          class="rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          [disabled]="speciesList.length < size"
+          (click)="onPageChange(page + 1)"
+        >
+          Next
+        </button>
       </div>
     </div>
   </div>
-  
 </div>
 <app-footer></app-footer>

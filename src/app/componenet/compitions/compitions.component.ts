@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import AOS from 'aos';
 import Swal from 'sweetalert2';
+import { of } from 'rxjs';
+
 import { CompitetionServiceService } from '../../service/compitetion-service.service';
 import { ParticipationService } from '../../service/participation.service';
 import { FooterComponent } from '../../front-student/footer/footer.component';
+import { Store } from '@ngrx/store';
+import { loadCompetitions, participateInCompetition } from '../../actions/competitions.actions';
+import { selectAllCompetitions, selectIsLoading, selectTotalElements } from '../../selectors/competitions.selectors';
+import { Competition } from '../../models/competition.model'; 
+import { Observable } from 'rxjs';
+
 
 interface createCompetition {
   competitionId: string;
@@ -16,20 +24,22 @@ interface createCompetition {
   imports: [CommonModule, FormsModule, FooterComponent],
   templateUrl: './compitions.component.html'
 })
-export class CompitionsComponent {
-  competitions: any = [];
-  totalElements = 0;
+export class CompitionsComponent implements OnInit {
+  competitions: Competition[] = []; // Local variable to store the competitions
+  isLoading$: Observable<boolean>;
+  totalElements$: Observable<number>;
+
   page: number = 0;
   size: number = 10;
-  isDataLoading = false;
-  isParticipating = false;
   searchCode: string = '';
-  isDataEmpty = false;
 
-  constructor(private compitetionServiceService: CompitetionServiceService, private partcipationService: ParticipationService) { }
+  constructor(private store: Store) {
+    this.isLoading$ = this.store.select(selectIsLoading);
+    this.totalElements$ = this.store.select(selectTotalElements);
+  }
 
-  ngOnInit() {
-    this.getCompetitions();
+  ngOnInit(): void {
+    this.loadCompetitions();
     AOS.init({
       duration: 800,
       easing: 'ease-in-out',
@@ -37,92 +47,38 @@ export class CompitionsComponent {
     });
   }
 
-  getCompetitions(): void {
-    this.compitetionServiceService.getCompitetionList(this.page, this.size)
-    .subscribe(
-      (response)=>{
-        this.competitions = response.content;
-        this.totalElements = response.totalElements;
-        this.isDataLoading = true;
-        if(this.competitions.length === 0) {
-          this.isDataEmpty = true;
-        }else this.isDataEmpty = false;
-      }
-    );
-  }
-  onPageChange(newPage: number): void {
-    this.isDataLoading = false;
-    this.page = newPage;
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
+  loadCompetitions(): void {
+    this.store.dispatch(loadCompetitions({ page: this.page, size: this.size }));
+  
+    this.store.select(selectAllCompetitions).subscribe((competitions: Competition[]) => {
+      this.competitions = competitions;
     });
-    this.getCompetitions();
-    
   }
-  get totalPages(): number {
-    return Math.ceil(this.totalElements / this.size);
+
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.loadCompetitions();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  onParticipate(competition: any): void {
-    this.isParticipating = true;
-    const participation: createCompetition = {
-      competitionId: competition.id
-    }
-    this.partcipationService.createParticipation(participation)
-    .subscribe(
-      (response)=>{
-        this.successParticipation();
-        this.isParticipating = false;
-      },
-      (error)=>{
-        this.errorParticipation(error.error);
-        this.isParticipating = false;
-      }
-    )
-  }
-  loadCompetitionByCode(): void {
-    this.isDataLoading = false;
+
+  onSearch(): void {
     if (this.searchCode.trim()) {
-      this.compitetionServiceService.getCompitetionListByCode(this.searchCode, this.page, this.size)
-      .subscribe(
-        (response)=>{
-          this.competitions = response.content;
-          this.totalElements = response.totalElements;
-          this.isDataLoading = true;
-          if(this.competitions.length === 0) {
-            this.isDataEmpty = true;
-          }else this.isDataEmpty = false;
-        }
-    );
+      this.store.dispatch(loadCompetitions({ page: this.page, size: this.size, searchCode: this.searchCode }));
     } else {
-      this.getCompetitions();
+      this.loadCompetitions();
     }
-
-
-    
-
   }
-  successParticipation() {
-     Swal.fire({
-        position: 'top-end', 
-        icon: 'success',
-        title: 'You have successfully participated in the competition!',
-        showConfirmButton: false, 
-        timer: 3500, 
-        toast: true, 
-        timerProgressBar: true,
-      });
-  }
-  errorParticipation(error: string) {
+
+  onParticipate(competitionId: string): void {
+    this.store.dispatch(participateInCompetition({ competitionId }));
     Swal.fire({
-      position: 'top-end', 
-      icon: 'error',
-      title: 'Error participating in the competition : ' + error,
-      showConfirmButton: false, 
-      timer: 3500, 
-      toast: true, 
+      position: 'top-end',
+      icon: 'info',
+      title: 'Processing your participation...',
+      showConfirmButton: false,
+      timer: 2000,
+      toast: true,
       timerProgressBar: true,
     });
   }
-
 }

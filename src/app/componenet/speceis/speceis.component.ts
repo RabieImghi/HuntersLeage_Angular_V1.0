@@ -1,91 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import AOS from 'aos';  
-import { SpeciesServiceService } from '../../service/species-service.service';
+import { CommonModule } from '@angular/common';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { loadSpecies, searchSpecies } from '../../actions/species.actions';
+import { AppState } from '../../state/app.state';
+import { selectSpeciesList, selectIsLoading, selectTotalElements, selectIsEmpty } from '../../selectors/species.selectors';
+import Swal from 'sweetalert2';
 import { FooterComponent } from '../../front-student/footer/footer.component';
+import { Species } from '../../models/species.model';
 
-interface Species {
-  name: string;
-  category: string;
-  minimumWeight: number;
-  difficulty: string;
-  points: number;
-  hunted: number;
-}
 @Component({
   selector: 'app-speceis',
   standalone: true,
   imports: [CommonModule, FormsModule, FooterComponent],
-  templateUrl: './speceis.component.html'
+  templateUrl: './speceis.component.html',
 })
-export class SpeceisComponent {
+export class SpeceisComponent implements OnInit {
+  speciesList: Species[] = []; 
+  isLoading$: Observable<boolean> = this.store.pipe(select(selectIsLoading));
+  totalElements$: Observable<number> = this.store.pipe(select(selectTotalElements));
+  isEmpty$: Observable<boolean> = this.store.pipe(select(selectIsEmpty));
 
-  speciesList: any = [];
+  searchName: string = '';
   page: number = 0;
   size: number = 10;
-  totalElements = 0;
-  isDataLoading = false;
-  searchName: string = '';
-  isDataEmpty = false;
 
-  constructor(private speciesServiceService: SpeciesServiceService) { }
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit() {
-    this.getSpecies();
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out',
-      once: true,
-    });
+  ngOnInit(): void {
+    this.loadSpecies();
   }
-  
 
-  getSpecies(): void {
-    this.speciesServiceService.getSpeciesList(this.page, this.size)
-    .subscribe(
-      (response)=>{
-        this.speciesList = response.content;
-        this.totalElements = response.totalElements;
-        this.isDataLoading = true;
-        if(this.speciesList.length === 0) {
-          this.isDataEmpty = true;
-        }else this.isDataEmpty = false;
-      },
-      (error)=>{
-        console.error('Error fetching species list:', error);
-      }
-    );
-  }
   loadSpecies(): void {
-    this.isDataLoading = false;
-    if(this.searchName) {
-      this.speciesServiceService.searchSpecies(this.searchName, this.page, this.size)
-      .subscribe(
-        (response)=>{
-          this.speciesList = response.content;
-          this.totalElements = response.totalElements;
-          this.isDataLoading = true;
-          if(this.speciesList.length === 0) {
-            this.isDataEmpty = true;
-          }else this.isDataEmpty = false;
-        },
-        (error)=>{
-          console.error('Error fetching species list:', error);
-        }
-      );
-    }else this.getSpecies();
-  }
-  onPageChange(newPage: number): void {
-    this.isDataLoading = false;
-    this.page = newPage;
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
+    this.store.dispatch(loadSpecies({ page: this.page, size: this.size }));
+    this.store.pipe(select(selectSpeciesList)).subscribe((speciesList: Species[]) => {
+      this.speciesList = speciesList; 
     });
-    this.getSpecies(); 
   }
-  get totalPages(): number {
-    return Math.ceil(this.totalElements / this.size);
+
+  searchSpecies(): void {
+    if (this.searchName.trim()) {
+      this.store.dispatch(searchSpecies({ searchName: this.searchName, page: this.page, size: this.size }));
+    } else {
+      this.loadSpecies();
+    }
+  }
+
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.loadSpecies();
+  }
+
+  get totalPages(): Observable<number> {
+    return this.totalElements$.pipe(
+      map((totalElements: number) => {
+        if (totalElements != null && !isNaN(totalElements)) {
+          return Math.ceil(totalElements / this.size);
+        } else {
+          return 0;
+        }
+      })
+    );
   }
 }
